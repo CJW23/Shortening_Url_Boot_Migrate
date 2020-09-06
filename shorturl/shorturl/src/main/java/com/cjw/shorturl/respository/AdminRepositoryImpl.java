@@ -1,9 +1,9 @@
-package com.cjw.shorturl.Respository;
+package com.cjw.shorturl.respository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryImpl {
+public class AdminRepositoryImpl {
 }

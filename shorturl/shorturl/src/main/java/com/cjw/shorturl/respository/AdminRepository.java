@@ -1,4 +1,4 @@
-package com.cjw.shorturl.Respository;
+package com.cjw.shorturl.respository;
 
 public interface AdminRepository {
 }

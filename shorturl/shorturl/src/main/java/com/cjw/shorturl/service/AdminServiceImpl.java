@@ -1,6 +1,6 @@
-package com.cjw.shorturl.Service;
+package com.cjw.shorturl.service;
 
-import com.cjw.shorturl.DTO.DayChartDTO;
+import com.cjw.shorturl.dto.DayChartDTO;
 
 import java.util.List;
 

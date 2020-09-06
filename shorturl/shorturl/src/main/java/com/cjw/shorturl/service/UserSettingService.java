@@ -1,4 +1,4 @@
-package com.cjw.shorturl.Service;
+package com.cjw.shorturl.service;
 
 public interface UserSettingService {
 }

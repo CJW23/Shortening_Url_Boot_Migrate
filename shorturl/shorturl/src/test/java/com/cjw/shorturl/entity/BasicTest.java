@@ -1,4 +1,4 @@
-package com.cjw.shorturl.Entity;
+package com.cjw.shorturl.entity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

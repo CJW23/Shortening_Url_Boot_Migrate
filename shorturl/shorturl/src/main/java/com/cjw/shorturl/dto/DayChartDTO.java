@@ -1,4 +1,4 @@
-package com.cjw.shorturl.DTO;
+package com.cjw.shorturl.dto;
 
 import lombok.Getter;
 import lombok.Setter;

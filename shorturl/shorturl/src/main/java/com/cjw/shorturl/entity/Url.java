@@ -1,4 +1,4 @@
-package com.cjw.shorturl.Entity;
+package com.cjw.shorturl.entity;
 
 import lombok.Getter;
 import lombok.Setter;
