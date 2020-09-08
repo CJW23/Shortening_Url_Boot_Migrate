@@ -1,9 +1,12 @@
 package com.cjw.shorturl.service;
 
 import com.cjw.shorturl.dto.DayChartDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService{
     @Override
     public int adminTotalUrlCount() {

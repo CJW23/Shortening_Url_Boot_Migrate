@@ -44,5 +44,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Url> urls = new ArrayList<>();
 
-
+    public void addUrl(Url url){
+        urls.add(url);
+        url.setUser(this);
+    }
 }

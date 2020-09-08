@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 public class Url {
     @Id
-    @GeneratedValue
     @Column(name = "url_id")
     private Long id;
     private String shortUrl;
@@ -36,4 +35,9 @@ public class Url {
 
     @OneToMany(mappedBy = "url")
     private List<AccessUrl> accessUrls = new ArrayList<>();
+
+    public void addAccessUrl(AccessUrl accessUrl){
+        accessUrls.add(accessUrl);
+        accessUrl.setUrl(this);
+    }
 }
