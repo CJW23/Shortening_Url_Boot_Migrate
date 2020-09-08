@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -22,12 +25,14 @@ public class MainController {
      * @throws Exception
      */
     @PostMapping("/create")
-    public Url create(Url url) throws Exception {
+    public Map<String, String> create(Url url) throws Exception {
         try{
-            return mainService.makeUrl(url);
+            return mainService.registerUrl(url);
         } catch (Exception e){
-            log.info(e.getMessage());
-            return null;
+            Map<String, String> map = new HashMap<>();
+            map.put("originalUrl", url.getOriginalUrl());
+            map.put("shortUrl", e.getMessage());
+            return map;
         }
 
     }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,12 +36,12 @@ public class MainServiceImpl implements MainService {
 
     /**
      * 단축 URL 생성 로직
+     *
      * @param url
      * @return
      * @throws Exception
      */
     @Override
-    @Transactional
     public Url makeUrl(Url url) throws Exception {
         //URL 정규식 검증 -> 정규식 맞지 않으면 앞에 http://를 단다.
         if (!urlManager.checkUrlRegex(url.getOriginalUrl())) {
@@ -56,8 +58,18 @@ public class MainServiceImpl implements MainService {
         url.setShortUrl("http://localhost:8080/" + Base62.encode(randomId));
         url.setId((long) randomId);
 
-        //URL 등록
+        return url;
+    }
+
+    @Override
+    @Transactional
+    public Map<String, String> registerUrl(Url url) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        url = makeUrl(url);
         urlRepository.saveUrl(url);
-        return urlRepository.findUrlOne(url.getId());
+
+        map.put("originalUrl", url.getOriginalUrl());
+        map.put("shortUrl", url.getShortUrl());
+        return map;
     }
 }
