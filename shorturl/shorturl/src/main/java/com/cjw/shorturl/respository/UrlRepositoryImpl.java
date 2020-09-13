@@ -1,5 +1,6 @@
 package com.cjw.shorturl.respository;
 
+import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +16,12 @@ public class UrlRepositoryImpl implements UrlRepository{
     private final EntityManager em;
 
     @Override
-    public Url findUrlOne(Long urlId) {
+    public Url findUrl(Long urlId) {
         return em.find(Url.class, urlId);
     }
 
     @Override
-    public void saveUrl(Url url) {
+    public void save(Url url) {
         em.persist(url);
     }
 
@@ -30,8 +31,8 @@ public class UrlRepositoryImpl implements UrlRepository{
     }
 
     @Override
-    public List<Url> registerUrlAccess(Long urlId, String link) {
-        return null;
+    public void saveUrlAccess(AccessUrl accessUrl) {
+        em.persist(accessUrl);
     }
 
     @Override

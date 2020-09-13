@@ -44,7 +44,7 @@ public class UrlManager {
         int randomNum = 4;
         while (count < maxCount) {
             randomNum = (int) (Math.random() * 100000000) + 1000000;
-            if (urlRepository.findUrlOne((long) randomNum) == null) {
+            if (urlRepository.findUrl((long) randomNum) == null) {
                 return randomNum;
             }
             count++;

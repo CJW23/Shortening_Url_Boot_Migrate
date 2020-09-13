@@ -1,5 +1,6 @@
 package com.cjw.shorturl.service;
 
+import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.exception.UrlException;
 import com.cjw.shorturl.lib.Base62;
@@ -25,13 +26,19 @@ public class MainServiceImpl implements MainService {
     private final UrlManager urlManager;
 
     @Override
-    public String getOriginalUrl(String path) {
-        return null;
+    public String findOriginalUrl(Long id) {
+        return findUrl(id).getOriginalUrl();
     }
 
     @Override
-    public void urlAccess(String path, String link) {
+    public Url findUrl(Long id) {
+        return urlRepository.findUrl(id);
+    }
 
+    @Override
+    @Transactional
+    public void saveUrlAccess(AccessUrl accessUrl) {
+        urlRepository.saveUrlAccess(accessUrl);
     }
 
     /**
@@ -63,11 +70,10 @@ public class MainServiceImpl implements MainService {
 
     @Override
     @Transactional
-    public Map<String, String> registerUrl(Url url) throws Exception {
+    public Map<String, String> saveUrl(Url url) throws Exception {
         Map<String, String> map = new HashMap<>();
         url = makeUrl(url);
-        urlRepository.saveUrl(url);
-
+        urlRepository.save(url);
         map.put("originalUrl", url.getOriginalUrl());
         map.put("shortUrl", url.getShortUrl());
         return map;
