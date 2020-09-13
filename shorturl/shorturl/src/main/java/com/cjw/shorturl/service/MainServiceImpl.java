@@ -13,9 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -25,16 +22,30 @@ public class MainServiceImpl implements MainService {
     private final EntityManager em;
     private final UrlManager urlManager;
 
+    /**
+     * 특정 URL Entity의 원본 URL 반환
+     * @param id
+     * @return
+     */
     @Override
     public String findOriginalUrl(Long id) {
         return findUrl(id).getOriginalUrl();
     }
 
+    /**
+     * Url Entity
+     * @param id
+     * @return
+     */
     @Override
     public Url findUrl(Long id) {
         return urlRepository.findUrl(id);
     }
 
+    /**
+     * UrlAccess 저장
+     * @param accessUrl
+     */
     @Override
     @Transactional
     public void saveUrlAccess(AccessUrl accessUrl) {
@@ -42,10 +53,9 @@ public class MainServiceImpl implements MainService {
     }
 
     /**
-     * 단축 URL 생성 로직
-     *
-     * @param url
-     * @return
+     * 단축 URL Entity 생성
+     * @param url Entity
+     * @return url Entity
      * @throws Exception
      */
     @Override
@@ -68,6 +78,12 @@ public class MainServiceImpl implements MainService {
         return url;
     }
 
+    /**
+     * URL 등록
+     * @param url
+     * @return
+     * @throws Exception
+     */
     @Override
     @Transactional
     public Map<String, String> saveUrl(Url url) throws Exception {
