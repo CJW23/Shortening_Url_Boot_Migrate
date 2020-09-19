@@ -12,30 +12,25 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class UrlRepositoryImpl implements UrlRepository{
+public class UrlRepositoryImpl{
     private final EntityManager em;
 
-    @Override
     public Url findUrl(Long urlId) {
         return em.find(Url.class, urlId);
     }
 
-    @Override
     public void save(Url url) {
         em.persist(url);
     }
 
-    @Override
     public Url selectOriginalUrl(Long urlId) {
         return null;
     }
 
-    @Override
     public void saveUrlAccess(AccessUrl accessUrl) {
         em.persist(accessUrl);
     }
 
-    @Override
     public boolean getBanUrl(String url) {
         return false;
     }

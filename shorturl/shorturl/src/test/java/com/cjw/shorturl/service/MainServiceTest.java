@@ -2,7 +2,7 @@ package com.cjw.shorturl.service;
 
 import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.lib.Base62;
-import com.cjw.shorturl.respository.UrlRepository;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +25,8 @@ public class MainServiceTest {
     @Autowired
     MainService mainService;
     @Autowired
+    UrlManager urlManager;
+    @Autowired
     UrlRepository urlRepository;
 
     @Test
@@ -40,6 +42,11 @@ public class MainServiceTest {
 
     @Test
     public void 정규식테스트() throws Exception {
-        assertTrue(mainService.urlRegexCheck("https://naver.com"));
+        assertTrue(urlManager.checkUrlRegex("https://naver.com"));
+    }
+
+    @Test
+    public void 회원칮기() throws Exception {
+
     }
 }

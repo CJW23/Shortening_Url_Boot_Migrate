@@ -4,7 +4,7 @@ import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.exception.UrlException;
 import com.cjw.shorturl.lib.Base62;
-import com.cjw.shorturl.respository.UrlRepository;
+import com.cjw.shorturl.respository.UrlRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,8 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MainServiceImpl implements MainService {
-    private final UrlRepository urlRepository;
+public class MainServiceImpl{
+    private final UrlRepositoryImpl urlRepository;
     private final EntityManager em;
     private final UrlManager urlManager;
 
@@ -27,7 +27,6 @@ public class MainServiceImpl implements MainService {
      * @param id
      * @return
      */
-    @Override
     public String findOriginalUrl(Long id) {
         return findUrl(id).getOriginalUrl();
     }
@@ -37,7 +36,6 @@ public class MainServiceImpl implements MainService {
      * @param id
      * @return
      */
-    @Override
     public Url findUrl(Long id) {
         return urlRepository.findUrl(id);
     }
@@ -46,7 +44,6 @@ public class MainServiceImpl implements MainService {
      * UrlAccess 저장
      * @param accessUrl
      */
-    @Override
     @Transactional
     public void saveUrlAccess(AccessUrl accessUrl) {
         urlRepository.saveUrlAccess(accessUrl);
@@ -58,8 +55,7 @@ public class MainServiceImpl implements MainService {
      * @return url Entity
      * @throws Exception
      */
-    @Override
-    public Url makeUrl(Url url) throws Exception {
+    private Url makeUrl(Url url) throws Exception {
         //URL 정규식 검증 -> 정규식 맞지 않으면 앞에 http://를 단다.
         if (!urlManager.checkUrlRegex(url.getOriginalUrl())) {
             url.setOriginalUrl("http://" + url.getOriginalUrl());
@@ -84,7 +80,6 @@ public class MainServiceImpl implements MainService {
      * @return
      * @throws Exception
      */
-    @Override
     @Transactional
     public Map<String, String> saveUrl(Url url) throws Exception {
         Map<String, String> map = new HashMap<>();

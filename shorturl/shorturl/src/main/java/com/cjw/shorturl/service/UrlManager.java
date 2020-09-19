@@ -1,12 +1,11 @@
 package com.cjw.shorturl.service;
 
-import com.cjw.shorturl.respository.UrlRepository;
+import com.cjw.shorturl.respository.UrlRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +18,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @Slf4j
 public class UrlManager {
-    final UrlRepository urlRepository;
+    final UrlRepositoryImpl urlRepository;
 
     /**
      * URL 정규식 검사
