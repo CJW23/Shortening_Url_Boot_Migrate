@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UrlController {
     private final MainServiceImpl mainService;
 
+    /**
+     * 단축URL 원본 URL로 Redirect
+     * @param path
+     * @return
+     */
     @GetMapping("/{path}/")
     public String redirectUrl(@PathVariable("path") String path){
         Long id = Base62.decodeToLong(path);

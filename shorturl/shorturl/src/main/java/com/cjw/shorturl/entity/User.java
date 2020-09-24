@@ -1,6 +1,6 @@
 package com.cjw.shorturl.entity;
 
-import com.cjw.shorturl.controller.SignUpDTO;
+import com.cjw.shorturl.dto.SignUpDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

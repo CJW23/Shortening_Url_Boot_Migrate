@@ -1,4 +1,4 @@
-package com.cjw.shorturl.controller;
+package com.cjw.shorturl.dto;
 
 import org.springframework.stereotype.Component;
 

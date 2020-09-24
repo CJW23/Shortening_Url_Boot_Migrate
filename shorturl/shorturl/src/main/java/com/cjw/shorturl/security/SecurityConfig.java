@@ -17,29 +17,30 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	private final LoginServiceImpl LoginServiceImpl;
+    private final LoginServiceImpl LoginServiceImpl;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/user/home").hasRole("USER")
-			.antMatchers("/user/signUp").permitAll()
-			.and()
-			.formLogin().defaultSuccessUrl("/user/home")
-			.and()
-			.csrf().disable()
-			//403 forbidden 처리 페이지
-			.exceptionHandling().accessDeniedPage("/user/denied");
-			//.defaultSuccessUrl("/home")
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/user/main").hasRole("USER")
+                .antMatchers("/guest/**").anonymous()       //비인증상태만 접근 가능
+                .antMatchers("/user/signUp").anonymous()    //회원가입은 비인증만 접근
+                .and()
+                .formLogin().successHandler(new LoginSuccessHandler())
+                .and()
+                .csrf().disable()
+                //403 forbidden 처리 페이지
+                .exceptionHandling().accessDeniedHandler(new AccessDeniedHandler());
+    }
 
-	/**
-	 * spring security의 모든 인증은 AuthenticationManager 통해 처리
-	 * @param auth
-	 * @throws Exception
-	 */
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(LoginServiceImpl).passwordEncoder(new BCryptPasswordEncoder());
-	}
+    /**
+     * spring security의 모든 인증은 AuthenticationManager 통해 처리
+     *
+     * @param auth
+     * @throws Exception
+     */
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(LoginServiceImpl).passwordEncoder(new BCryptPasswordEncoder());
+    }
 }
