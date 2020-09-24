@@ -17,12 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 public class ViewController {
     private final LoginServiceImpl loginService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/user/main")
-    public String main() {
-        return "user/main";
-    }
-
     @GetMapping("/auth/signUp")
     public String signUp() {
         return "auth/signup";
@@ -43,6 +37,16 @@ public class ViewController {
 
     @GetMapping("/guest/main")
     public String guestMain() {
-		return "home";
+        return "home";
+    }
+
+    @GetMapping("/user/main")
+    public String userMain() {
+        return "user/main";
+    }
+
+    @GetMapping("/admin/main")
+    public String adminMain() {
+        return "admin/main";
     }
 }

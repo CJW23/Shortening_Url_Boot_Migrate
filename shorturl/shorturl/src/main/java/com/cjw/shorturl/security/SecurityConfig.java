@@ -22,9 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/user/main").hasRole("USER")
+                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/guest/**").anonymous()       //비인증상태만 접근 가능
-                .antMatchers("/user/signUp").anonymous()    //회원가입은 비인증만 접근
+                .antMatchers("/auth/signUp").anonymous()    //회원가입은 비인증만 접근
                 .and()
                 .formLogin().successHandler(new LoginSuccessHandler())
                 .and()
