@@ -1,10 +1,40 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <title>Hello</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Short URL</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-    home
+<div class="container">
+    <br><br><br>
+    <div class="row justify-content-center">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="enter_url" id="enter_url" placeholder="Enter your URL">
+            <div class="input-group-append">
+                <button onclick="requestGuestCreateUrl()" class="btn btn-primary " type="button">Convert</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6" style="text-align: center; margin-top: 80px;">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">원본 URL</th>
+                    <th scope="col">단축 URL</th>
+                </tr>
+                </thead>
+                <tbody id="urlList">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/guest/guestProcess.js}"></script>
+<script type="text/javascript" th:src="@{/js/guest/guestResponse.js}"></script>
 </body>
 </html>

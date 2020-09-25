@@ -24,7 +24,6 @@ public class Url {
     @Column(nullable = false)
     private String originalUrl;
 
-    @Column(nullable = false)
     private String nameUrl;
 
     @Column(columnDefinition = "bigint default 0")

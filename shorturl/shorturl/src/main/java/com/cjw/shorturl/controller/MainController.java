@@ -24,9 +24,10 @@ public class MainController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/create")
-    public Map<String, String> create(Url url) throws Exception {
+    @PostMapping("/guest/create")
+    public Map<String, String> guestCreate(Url url) throws Exception {
         try{
+            log.info(url.getOriginalUrl());
             return mainService.saveUrl(url);
         } catch (Exception e){
             Map<String, String> map = new HashMap<>();
@@ -35,5 +36,4 @@ public class MainController {
             return map;
         }
     }
-
 }
