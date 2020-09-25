@@ -49,7 +49,7 @@ function makeGuestUrlTemplate() {
             html +=
                 '<tr>' +
                 '<td>' + urlData[i]["originalUrl"] + '</td>' +
-                '<td><a href="http://' + urlData[i]["shortUrl"] + '" id="shortUrl">' + urlData[i]['shortUrl'] + '</a>' +
+                '<td><a href="' + urlData[i]["shortUrl"] + '" id="shortUrl">' + urlData[i]['shortUrl'] + '</a>' +
                 '</td>' +
                 '</tr>';
         }
