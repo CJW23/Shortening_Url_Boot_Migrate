@@ -1,4 +1,4 @@
-package com.cjw.shorturl.service;
+package com.cjw.shorturl.service.manager;
 
 import com.cjw.shorturl.respository.UrlRepositoryImpl;
 import lombok.RequiredArgsConstructor;

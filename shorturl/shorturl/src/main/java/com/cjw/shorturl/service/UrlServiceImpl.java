@@ -5,6 +5,7 @@ import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.exception.UrlException;
 import com.cjw.shorturl.lib.Base62;
 import com.cjw.shorturl.respository.UrlRepositoryImpl;
+import com.cjw.shorturl.service.manager.UrlManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MainServiceImpl{
+public class UrlServiceImpl {
     private final UrlRepositoryImpl urlRepository;
     private final EntityManager em;
     private final UrlManager urlManager;

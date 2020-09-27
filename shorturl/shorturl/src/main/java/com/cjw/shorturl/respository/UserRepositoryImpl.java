@@ -15,4 +15,6 @@ import javax.persistence.TypedQuery;
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl{
+	private final EntityManager em;
+
 }

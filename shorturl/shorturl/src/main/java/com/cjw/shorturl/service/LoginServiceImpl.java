@@ -21,18 +21,22 @@ import javax.persistence.EntityManager;
 @RequiredArgsConstructor
 @Slf4j
 public class LoginServiceImpl implements UserDetailsService {
-    private final LoginRepositoryImpl loginRepository;
+	private final LoginRepositoryImpl loginRepository;
 
-    @Transactional
-    public Long join(User user) {
-        return loginRepository.saveUser(user);
-    }
+	@Transactional
+	public Long join(User user) {
+		return loginRepository.saveUser(user);
+	}
 
-    @Override
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        User user = loginRepository.findUserByEmail(userEmail);
-        log.info(user.getEmail());
-        log.info(user.getPassword());
-        return new MyUserDetails(user);
-    }
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = loginRepository.findUserByEmail(email);
+		log.info(user.getEmail());
+		log.info(user.getPassword());
+		return new MyUserDetails(user);
+	}
+
+	public User findUserByEmail(String email) {
+        return loginRepository.findUserByEmail(email);
+	}
 }

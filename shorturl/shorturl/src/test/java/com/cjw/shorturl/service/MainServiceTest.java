@@ -2,6 +2,7 @@ package com.cjw.shorturl.service;
 
 import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.lib.Base62;
+import com.cjw.shorturl.service.manager.UrlManager;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class MainServiceTest {
     @Autowired
     MainService mainService;
     @Autowired
-    UrlManager urlManager;
+	UrlManager urlManager;
     @Autowired
     UrlRepository urlRepository;
 

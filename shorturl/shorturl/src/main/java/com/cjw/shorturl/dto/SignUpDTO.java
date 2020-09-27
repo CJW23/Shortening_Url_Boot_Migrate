@@ -1,7 +1,9 @@
 package com.cjw.shorturl.dto;
 
-import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotBlank;
 
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Validator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Component
 public class SignUpDTO {
+	@NotBlank(message = "이메일 공백")
 	private String email;
 	private String password;
 	private String name;
