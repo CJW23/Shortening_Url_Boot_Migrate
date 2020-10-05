@@ -25,7 +25,6 @@ public class UrlController {
     public String redirectUrl(@PathVariable("path") String path){
         Long id = Base62.decodeToLong(path);
         Url url = urlService.findUrl(id);
-        log.info("awd " + url.getOriginalUrl());
         AccessUrl accessUrl = new AccessUrl();
         accessUrl.setUrl(url);
         accessUrl.setBeforeUrl(null);   //추후 구현
