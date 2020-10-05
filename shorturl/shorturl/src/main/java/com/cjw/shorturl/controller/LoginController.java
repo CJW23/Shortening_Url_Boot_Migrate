@@ -2,6 +2,7 @@ package com.cjw.shorturl.controller;
 
 import javax.validation.Valid;
 
+import com.cjw.shorturl.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
-	private final LoginServiceImpl loginService;
+	private final UserServiceImpl userService;
 
 	@PostMapping("/auth/signUp")
 	public String processSignUp(@Valid SignUpDTO signUpDTO, BindingResult bindingResult) {
@@ -24,7 +25,7 @@ public class LoginController {
 			return "auth/signup";
 		}
 		User user = User.makeSignUpUser(signUpDTO);
-		loginService.join(user);
+		userService.join(user);
 		return "redirect:/user/main";
 	}
 }

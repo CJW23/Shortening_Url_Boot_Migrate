@@ -21,27 +21,27 @@
     </div>
     <div class="form-group content-div">
         <label for="name">이름</label>
-        <input value="{{old('name') ? old('name'):Auth::user()->name}}" id="name" name="name" class="form-control">
+        <input th:value="${info.name}" id="name" name="name" class="form-control">
     </div>
     <div class="form-group content-div">
         <label for="nickname">닉네임</label><br>
-        <input value="{{old('name') ? old('name'):Auth::user()->nickname}}" id="nickname" name="nickname"
+        <input th:value="${info.nickname}" id="nickname" name="nickname"
                class="form-control" readonly style="background-color: #81e6d9;">
 
     </div>
     <div class="form-group content-div">
         <label for="email">이메일</label>
-        <input value="{{Auth::user()->email}}" id="email" class="form-control" readonly
+        <input th:value="${info.email}" id="email" class="form-control" readonly
                style="background-color: #81e6d9;">
     </div>
     <div class="form-group content-div">
-        <label for="email">핸드폰</label>
-        <input value="{{decrypt(Auth::user()->phone)}}" id="phone" class="form-control" readonly
+        <label for="phone">핸드폰</label>
+        <input th:value="${info.phone}" id="phone" class="form-control" readonly
                style="background-color: #81e6d9;">
     </div>
     <div class="form-group content-div">
         <label for="created-at">만든 날짜</label>
-        <input value="{{Auth::user()->created_at}}" id="created-at" class="form-control" readonly
+        <input th:value="${info.createdAt}" id="created-at" class="form-control" readonly
                style="background-color: #81e6d9;">
     </div>
     <button type="button" onclick="requestEditInfo()" class="btn btn-success col-2">수정</button>

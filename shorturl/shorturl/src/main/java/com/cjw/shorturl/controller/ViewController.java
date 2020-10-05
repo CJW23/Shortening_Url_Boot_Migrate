@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.cjw.shorturl.dto.SignUpDTO;
 
+import com.cjw.shorturl.service.UserServiceImpl;
 import org.dom4j.rule.Mode;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -25,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class ViewController {
-	private final LoginServiceImpl loginService;
+	private final UserServiceImpl userService;
 
 	/**
 	 * 회원가입 페이지
@@ -74,7 +75,7 @@ public class ViewController {
 	@GetMapping("/user/setting/info")
 	public String userInfo(Model model, Authentication authentication) {
 		MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
-		model.addAttribute("info", loginService.findUserByEmail(userDetails.getUsername()));
+		model.addAttribute("info", userService.findUserByEmail(userDetails.getUsername()));
         return "user/info";
 	}
 
@@ -83,8 +84,8 @@ public class ViewController {
 	 */
 	@GetMapping("/user/setting/editInfo")
     public String userEditInfo(Model model, Authentication authentication){
-		MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
-		model.addAttribute("info", loginService.findUserByEmail(userDetails.getUsername()));
+		MyUserDetails user = (MyUserDetails)authentication.getPrincipal();
+		model.addAttribute("info", userService.findUserByEmail(user.getEmail()));
 		return "/user/edit_info";
     }
 
@@ -109,8 +110,8 @@ public class ViewController {
 	 */
     @GetMapping("/user/setting/editNickname")
     public String userEditNickname(Model model, Authentication authentication){
-		MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
-		model.addAttribute("nickname", loginService.findUserByEmail(userDetails.getUsername()).getNickname());
+		MyUserDetails user= (MyUserDetails)authentication.getPrincipal();
+		model.addAttribute("nickname", userService.findUserByEmail(user.getEmail()));
 	    return "/user/edit_nickname";
     }
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,21 +15,29 @@ import lombok.RequiredArgsConstructor;
 /**
  * 유저의 인증 관리
  */
-@RequiredArgsConstructor
+@Getter
 public class MyUserDetails implements UserDetails {
-	private String email;
-	private String password;
-	private String auth;
+	private final Long id;
+	private final String email;
+	private final String name;
+	private final String nickname;
+	private final String password;
+	private final String phone;
+	private final String role;
 
 	public MyUserDetails(User user) {
+		this.id = user.getId();
 		this.email = user.getEmail();
+		this.name = user.getName();
+		this.nickname = user.getNickname();
 		this.password = user.getPassword();
-		this.auth = "ROLE_" + user.getRole();
+		this.phone = user.getPhone();
+		this.role = "ROLE_" + user.getRole();
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new SimpleGrantedAuthority(this.auth));
+		return Collections.singletonList(new SimpleGrantedAuthority(this.role));
 	}
 
 	@Override

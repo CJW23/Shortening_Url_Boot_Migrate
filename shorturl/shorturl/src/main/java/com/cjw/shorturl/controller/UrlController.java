@@ -21,7 +21,7 @@ public class UrlController {
      * @param path
      * @return
      */
-    @GetMapping("/{path}")
+    /*@GetMapping("/{path}")
     public String redirectUrl(@PathVariable("path") String path){
         Long id = Base62.decodeToLong(path);
         Url url = urlService.findUrl(id);
@@ -31,7 +31,7 @@ public class UrlController {
 
         urlService.saveUrlAccess(accessUrl);
         return "redirect:" + url.getOriginalUrl();
-    }
+    }*/
 
 
     /*@PostMapping("/user/create")
