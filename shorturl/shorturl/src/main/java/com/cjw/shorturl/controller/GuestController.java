@@ -18,7 +18,7 @@ public class GuestController {
     private final UrlServiceImpl urlService;
 
     /**
-     * 단축 URL 생성
+     * 비로그인 사용자 단축 URL 생성
      * @param url
      * @return
      * @throws Exception

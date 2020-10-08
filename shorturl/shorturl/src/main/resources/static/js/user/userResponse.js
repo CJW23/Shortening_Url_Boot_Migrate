@@ -71,7 +71,7 @@ function totalDataResponse(totalNum, totalSum) {
 function editInfoResponse(rst) {
     if(rst === TRUE) {
         alert('수정 완료');
-        window.location.href = '/users/setting/edit-info';
+        //window.location.href = '/users/setting/edit-info';
     } else {
         alert("오류 발생");
     }
@@ -100,7 +100,6 @@ function checkNicknameResponse(rst) {
 function editNicknameResponse(rst) {
     if (rst === TRUE) {
         alert('수정 완료');
-        window.location.href = '/users/setting/nickname';
     } else {
         alert("오류 발생");
     }
@@ -126,7 +125,7 @@ function editPasswordResponse(type, rst) {
     //변경 완료
     else  if(type === CORRECT_PASSWORD){
         alert(rst);
-        window.location.href = '/users/setting/info';
+        window.location.href = '/user/setting/info';
     }
 }
 
@@ -135,11 +134,11 @@ function editPasswordResponse(type, rst) {
  * 완료시 Logout 후 Index 페이지로 이동
  * @param rst
  */
-function dropUserResponse(rst) {
-    if (rst === TRUE) {
+function dropUserResponse(type) {
+    if (type === DELETE_COMPLETE) {
         alert("탈퇴 완료");
-        window.location.href = '/';
-    } else if (rst === WRONG) {
+        //window.location.href = '/main';
+    } else if (type === WRONG_PASSWORD) {
         $('#drop_text_help').html("");
         $('#password_help').html("비밀번호를 확인해주세요");
     } else {

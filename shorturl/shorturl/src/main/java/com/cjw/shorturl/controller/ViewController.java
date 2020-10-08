@@ -31,7 +31,7 @@ public class ViewController {
 	/**
 	 * 회원가입 페이지
 	 */
-	@GetMapping("/auth/signUp")
+	@GetMapping("/signUp")
 	public String signUp(Model model) {
 		model.addAttribute("signUpDTO", new SignUpDTO());
 		return "auth/signup";
@@ -40,7 +40,7 @@ public class ViewController {
 	/**
 	 * 접근 거부 페이지
 	 */
-	@GetMapping("/auth/denied")
+	@GetMapping("/denied")
 	public String denied() {
 		return "auth/access_denied";
 	}
@@ -48,7 +48,7 @@ public class ViewController {
 	/**
 	 * Guest URL변환 페이지
 	 */
-	@GetMapping("/guest/main")
+	@GetMapping("/main")
 	public String guestMain() {
 		return "home";
 	}
@@ -111,7 +111,7 @@ public class ViewController {
     @GetMapping("/user/setting/editNickname")
     public String userEditNickname(Model model, Authentication authentication){
 		MyUserDetails user= (MyUserDetails)authentication.getPrincipal();
-		model.addAttribute("nickname", userService.findUserByEmail(user.getEmail()));
+		model.addAttribute("nickname", userService.findUserByEmail(user.getEmail()).getNickname());
 	    return "/user/edit_nickname";
     }
 }

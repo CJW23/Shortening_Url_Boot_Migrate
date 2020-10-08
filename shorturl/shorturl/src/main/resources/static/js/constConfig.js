@@ -6,5 +6,6 @@ const FAIL = 0;
 const SAME_PASSWORD = 1;
 const WRONG_PASSWORD = 2;
 const CORRECT_PASSWORD = 3;
+const DELETE_COMPLETE = 4;
 const TRUE = 'true';
 const WRONG = 'wrong';

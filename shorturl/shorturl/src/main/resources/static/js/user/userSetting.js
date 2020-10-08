@@ -9,7 +9,7 @@ function requestEditInfo() {
     }
     $.ajax({
         type: 'put',
-        url: '/users/setting/editInfo',
+        url: '/user/setting/editInfo',
         dataType: 'json',
         data: {'name': name},
         success: function (data) {
@@ -40,9 +40,8 @@ function requestCheckNickname() {
     }
 
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        type: 'post',
-        url: '/users/setting/checknickname',
+        type: 'get',
+        url: '/user/setting/checkNickname',
         data: {'nickname': nickname},
         success: function (data) {
             checkNicknameResponse(data['rst']);
@@ -64,9 +63,8 @@ function requestEditNickname() {
     const inputNickname = $('#nickname').val();
 
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'put',
-        url: '/users/setting/nickname',
+        url: '/user/setting/editNickname',
         data: {'nickname': inputNickname},
         success: function (data) {
             editNicknameResponse(data['rst']);
@@ -86,13 +84,12 @@ function requestEditPassword() {
         return;
     }
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'put',
-        url: '/users/setting/password',
+        url: '/user/setting/editPassword',
         data: {
-            'current_password': $('#current_password').val(),
-            'new_password': $('#new_password').val(),
-            'new_confirm_password': $('#new_confirm_password').val()
+            'currentPassword': $('#current_password').val(),
+            'newPassword': $('#new_password').val(),
+            'newConfirmPassword': $('#new_confirm_password').val()
         },
         success: function (data) {
             editPasswordResponse(data['type'], data['rst']);
@@ -113,15 +110,14 @@ function requestDropUser() {
         return;
     }
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'delete',
-        url: '/users/setting/delete',
+        url: '/user/setting/delete',
         data: {
-            'current_password': $('#current_password').val()
+            'password': $('#current_password').val()
         },
         dataType: 'json',
         success: function (data) {
-            dropUserResponse(data['rst']);
+            dropUserResponse(data['type']);
         },
         error: function (data) {
             console.log(data);

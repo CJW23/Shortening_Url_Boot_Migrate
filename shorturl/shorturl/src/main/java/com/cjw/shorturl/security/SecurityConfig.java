@@ -24,12 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/guest/**").anonymous()       //비인증상태만 접근 가능
-                .antMatchers("/auth/signUp").anonymous()    //회원가입은 비인증만 접근
+                .antMatchers("/main").anonymous()       //비인증상태만 접근 가능
+                .antMatchers("/signUp").anonymous()    //회원가입은 비인증만 접근
+                .anyRequest().permitAll()
                 .and()
                 .formLogin().successHandler(new LoginSuccessHandler())
                 .and()
-                .csrf().disable()
+                .csrf().disable().cors().and()
                 //403 forbidden 처리 페이지
                 .exceptionHandling().accessDeniedHandler(new AccessDeniedHandler());
     }

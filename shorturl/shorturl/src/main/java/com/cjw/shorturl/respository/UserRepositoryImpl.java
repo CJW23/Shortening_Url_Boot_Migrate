@@ -33,4 +33,14 @@ public class UserRepositoryImpl{
 		em.persist(user);
 		return user.getId();
 	}
+
+	public boolean findExistNickname(String nickname){
+		TypedQuery<User> query = em.createQuery("select m from User as m where m.nickname = ?1", User.class)
+				.setParameter(1, nickname);
+		return query.getResultList().size() < 1;
+	}
+
+	public void removeUser(User user){
+		em.remove(user);
+	}
 }

@@ -8,10 +8,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserSettingResponseDTO {
     private final String rst;
-    private final String type;
+    private final Integer type;
 
     public UserSettingResponseDTO(String rst){
         this.rst = rst;
-        this.type = "";
+        this.type = null;
     }
 }
