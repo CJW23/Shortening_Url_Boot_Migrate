@@ -59,7 +59,6 @@ public class ViewController {
 	@GetMapping("/user/main")
 	public String userMain(Model model, Authentication authentication) {
 	    MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
-        model.addAttribute("id", userDetails.getId());
 		return "user/main";
 	}
 

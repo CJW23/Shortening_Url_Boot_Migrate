@@ -1,7 +1,10 @@
 package com.cjw.shorturl.service;
 
+import com.cjw.shorturl.dto.CreateUserUrlDTO;
 import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
+import com.cjw.shorturl.entity.User;
+import com.cjw.shorturl.exception.MakeRandomException;
 import com.cjw.shorturl.exception.UrlException;
 import com.cjw.shorturl.lib.Base62;
 import com.cjw.shorturl.respository.UrlRepositoryImpl;
@@ -20,8 +23,8 @@ import java.util.Map;
 @Slf4j
 public class UrlServiceImpl {
     private final UrlRepositoryImpl urlRepository;
-    private final EntityManager em;
     private final UrlManager urlManager;
+    private final EntityManager em;
 
     /**
      * 특정 URL Entity의 원본 URL 반환
@@ -71,10 +74,27 @@ public class UrlServiceImpl {
         int randomId = urlManager.makeRandom();
         url.setShortUrl("http://localhost:8080/a/" + Base62.encode(randomId));
         url.setId((long) randomId);
-
         return url;
     }
 
+    private Url makeUserUrl(Long id, CreateUserUrlDTO userUrl) throws MakeRandomException, UrlException {
+        Url url = new Url();
+        if(!urlManager.checkUrlRegex(userUrl.getUrl())){
+            url.setOriginalUrl("http://" + userUrl.getUrl());
+        } else {
+            url.setOriginalUrl(userUrl.getUrl());
+        }
+        if(!urlManager.checkExistUrl(userUrl.getUrl())){
+            throw new UrlException("존재하지 않는 URL");
+        }
+        if(!urlManager.checkAlreadyUrl(id, url.getOriginalUrl())){
+            throw new UrlException("이미 존재하는 URL");
+        }
+        int randomId = urlManager.makeRandom();
+        url.setShortUrl("http://localhost:8080/a/" + Base62.encode(randomId));
+        url.setId((long) randomId);
+        return url;
+    }
     /**
      * URL 등록
      * @param url
@@ -89,5 +109,12 @@ public class UrlServiceImpl {
         map.put("originalUrl", url.getOriginalUrl());
         map.put("shortUrl", url.getShortUrl());
         return map;
+    }
+
+    @Transactional
+    public void saveUserUrl(Long id, CreateUserUrlDTO userUrl) throws MakeRandomException, UrlException {
+        Url url = makeUserUrl(id, userUrl);
+        url.setUser(em.find(User.class, id));
+        urlRepository.save(url);
     }
 }

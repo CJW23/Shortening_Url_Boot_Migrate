@@ -2,11 +2,13 @@ package com.cjw.shorturl.respository;
 
 import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
+import com.cjw.shorturl.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -33,5 +35,12 @@ public class UrlRepositoryImpl{
 
     public boolean getBanUrl(String url) {
         return false;
+    }
+
+    public boolean findAlreadyUrl(Long id, String url){
+        TypedQuery<Url> query = em.createQuery(
+                "select m from Url as m where m.originalUrl = ?1 and m.user = ?2",
+                Url.class).setParameter(1, url).setParameter(2, em.find(User.class, id));
+        return query.getResultList().size() < 1;
     }
 }

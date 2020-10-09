@@ -2,7 +2,7 @@
  * 유저 URL 등록 요청
  * @param id
  */
-function requestCreateUrl(id) {
+function requestCreateUrl() {
     //유효하지 않은 URL 표현 없애기(있는 경우)
     $('#url_register_help').html("");
     let url = $('#url-register').val();
@@ -18,9 +18,9 @@ function requestCreateUrl(id) {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'post',
-        url: '/users/urls/create',
+        url: '/user/create',
         dataType: 'json',
-        data: {'url': url, 'userid': id, 'nameUrl': nameUrl},
+        data: {'url': url, 'nameUrl': nameUrl},
         success: function (data) {
             createUrlResponse(data);
         },

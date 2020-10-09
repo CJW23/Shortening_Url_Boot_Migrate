@@ -1,6 +1,7 @@
 package com.cjw.shorturl.exception;
 
 import com.cjw.shorturl.ConstConfig;
+import com.cjw.shorturl.dto.CreateUrlResponseDTO;
 import com.cjw.shorturl.dto.UserSettingResponseDTO;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,5 +23,10 @@ public class AllExceptionHandler extends ResponseEntityExceptionHandler {
         } else {
             return new UserSettingResponseDTO(e.getMessage(), ConstConfig.SAME_PASSWORD.getVal());
         }
+    }
+
+    @ExceptionHandler(UrlException.class)
+    public final CreateUrlResponseDTO handleUrl(Exception e){
+        return new CreateUrlResponseDTO("false", e.getMessage());
     }
 }

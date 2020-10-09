@@ -1,5 +1,6 @@
 package com.cjw.shorturl.dto;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -9,7 +10,6 @@ import lombok.Setter;
 @Setter
 @Component
 public class CreateUserUrlDTO {
-    int userId;
     String url;
     String nameUrl;
 }

@@ -1,5 +1,6 @@
 package com.cjw.shorturl.service.manager;
 
+import com.cjw.shorturl.exception.MakeRandomException;
 import com.cjw.shorturl.respository.UrlRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class UrlManager {
      * @return
      * @throws Exception
      */
-    public int makeRandom() throws Exception {
+    public int makeRandom() throws MakeRandomException {
         int maxCount = 3;
         int count = 0;
         int randomNum = 4;
@@ -48,7 +49,7 @@ public class UrlManager {
             }
             count++;
         }
-        throw new Exception();
+        throw new MakeRandomException("랜덤값 오류");
     }
 
     /**
@@ -71,5 +72,9 @@ public class UrlManager {
             return false;
         }
         return check;
+    }
+
+    public boolean checkAlreadyUrl(Long id, String checkUrl){
+        return urlRepository.findAlreadyUrl(id, checkUrl);
     }
 }

@@ -36,9 +36,4 @@ public class UrlController {
         urlService.saveUrlAccess(accessUrl);
         return "redirect:" + url.getOriginalUrl();
     }
-
-    @PostMapping("/user/create")
-    public void userCreate(Url url) throws Exception {
-
-    }
 }
