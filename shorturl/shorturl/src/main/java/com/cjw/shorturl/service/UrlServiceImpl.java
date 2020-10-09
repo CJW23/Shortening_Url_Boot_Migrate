@@ -69,7 +69,7 @@ public class UrlServiceImpl {
 
         //URL PATH 붙이기
         int randomId = urlManager.makeRandom();
-        url.setShortUrl("http://localhost:8080/" + Base62.encode(randomId));
+        url.setShortUrl("http://localhost:8080/a/" + Base62.encode(randomId));
         url.setId((long) randomId);
 
         return url;

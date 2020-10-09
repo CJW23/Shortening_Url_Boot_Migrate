@@ -51,6 +51,7 @@ public class UserSettingService {
     public void deleteUser(Long id, String curPassword) throws WrongCurrentPasswordException {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = userRepository.findUserById(id);
+        log.info("awd " + user.getPassword());
         if (!passwordEncoder.matches(curPassword, user.getPassword())) {
             throw new WrongCurrentPasswordException("기존 비밀번호가 틀립니다");
         }

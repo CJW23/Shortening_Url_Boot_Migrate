@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -52,14 +53,11 @@ public class UserSettingController {
     }
 
     @DeleteMapping("/user/setting/delete")
-    public UserSettingResponseDTO deleteUser(HttpServletResponse response, Authentication authentication, @RequestParam String password) throws WrongCurrentPasswordException {
+    public UserSettingResponseDTO deleteUser(HttpServletRequest request, HttpServletResponse response, Authentication authentication, @RequestParam String password) throws WrongCurrentPasswordException {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        log.info(user.getId().toString());
         userSettingService.deleteUser(user.getId(), password);
-
-        authentication = null;
-        Cookie cookie = new Cookie("JSESSIONID", null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        authentication.setAuthenticated(false);     //인증 제거
         return new UserSettingResponseDTO("삭제 완료", ConstConfig.DELETE_COMPLETE.getVal());
     }
 }

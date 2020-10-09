@@ -137,7 +137,7 @@ function editPasswordResponse(type, rst) {
 function dropUserResponse(type) {
     if (type === DELETE_COMPLETE) {
         alert("탈퇴 완료");
-        //window.location.href = '/main';
+        window.location.href = '/main';
     } else if (type === WRONG_PASSWORD) {
         $('#drop_text_help').html("");
         $('#password_help').html("비밀번호를 확인해주세요");

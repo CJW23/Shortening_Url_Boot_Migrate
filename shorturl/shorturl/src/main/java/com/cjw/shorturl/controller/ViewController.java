@@ -57,7 +57,9 @@ public class ViewController {
 	 * 유저 URL 관리 페이지
 	 */
 	@GetMapping("/user/main")
-	public String userMain() {
+	public String userMain(Model model, Authentication authentication) {
+	    MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
+        model.addAttribute("id", userDetails.getId());
 		return "user/main";
 	}
 
