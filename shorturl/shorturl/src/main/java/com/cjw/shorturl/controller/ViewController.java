@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import javax.validation.Valid;
 
+import com.cjw.shorturl.dto.CreateUrlResponseDTO;
 import com.cjw.shorturl.dto.SignUpDTO;
 
 import com.cjw.shorturl.service.UserServiceImpl;
@@ -59,6 +60,8 @@ public class ViewController {
 	@GetMapping("/user/main")
 	public String userMain(Model model, Authentication authentication) {
 	    MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
+	    model.addAttribute("role", userDetails.getRole());
+	    model.addAttribute("name", userDetails.getName());
 		return "user/main";
 	}
 
