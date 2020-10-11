@@ -1,10 +1,8 @@
 package com.cjw.shorturl.respository;
 
-import com.cjw.shorturl.dto.DayChartDTO;
-import com.cjw.shorturl.dto.UrlCountDTO;
-import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +14,7 @@ import javax.persistence.TypedQuery;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class UserRepositoryImpl{
 	private final EntityManager em;
 
@@ -45,20 +44,19 @@ public class UserRepositoryImpl{
 		em.remove(user);
 	}
 
-	public Object findTotalUrlAccessById(Long id) {
-        Query query = em.createQuery(
-            "SELECT new com.cjw.shorturl.dto.DayChartDTO(data.day, data.count)"
-                + "FROM User user, AccessUrl access, Url url "
-                + "WHERE user.id = ?1 AND user.id = url.user_id AND url.id = access.url_id "
-                + "AND function('date_format', access.accessTime, '%Y-%m-%d') BETWEEN (CURRENT_DATE - 7) AND CURRENT_DATE "
-                + "GROUP BY function('date_format', access.accessTime, '%m-%d')").setParameter(1, id);
-
-            //FROM AccessUrl access, User user, Url url
-            //"FROM User user, AccessUrl access, Url url "
-            //  + "WHERE user.id = 1? "
-            //  + "AND user.id = url.user_id "
-            //   "AND url.id = access.url_id)"
-            //   "AND DATE(access.accessTime, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL )
-        )
+	public List<Object[]> findTotalUrlAccessById(Long id) {
+        Query query =
+				em.createNativeQuery(
+						"SELECT date_format(access_time, '%m-%d') AS dates, SUM(1) AS count " +
+								"FROM access_url, user, url " +
+								"WHERE user.user_id = 41 AND " +
+								"user.user_id = url.user_id AND " +
+								"url.url_id = access_url.url_id AND " +
+								"date_format(access_time, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL 7 DAY) AND NOW() " +
+								"GROUP BY dates " +
+								"ORDER BY dates");
+        List<Object[]> list = query.getResultList();
+        log.info("listSizeawd : " + Integer.toString(list.size()));
+        return list;
     }
 }

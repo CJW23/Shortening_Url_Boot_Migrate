@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/makeData.js}"></script>
+        <script type="text/javascript" th:src="@{/js/chartConfig.js}"></script>
+        <script type="text/javascript" th:src="@{/js/user/userChartConfig.js}"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"
                 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
@@ -12,6 +16,7 @@
               crossorigin="anonymous">
         <link rel="stylesheet" th:href="@{/css/userPage.css}">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
     </head>
     <body>
         <div layout:fragment="header">
@@ -29,7 +34,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                             <!-- 유저 로그인시 헤더 -->
-                            <div th:if="${userData.getUserRole() != null}" class="nav-item dropdown show">
+                            <div th:if="${userData != null && userData.getUserRole() != null}" class="nav-item dropdown show">
                                 <a id="navbarDropdown" th:text="${userData.getUserName()}"
                                    class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
@@ -63,7 +68,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div th:unless="${userData.getUserRole() != null}">
+                            <div th:unless="${userData != null && userData.getUserRole() != null}">
                                 <li class="nav-item">
                                     <a class="nav-link" href="/signUp">SignUp</a>
                                 </li>
@@ -77,7 +82,6 @@
             </nav>
         </div>
         <th:block layout:fragment="content"></th:block>
-        <script type="text/javascript" th:src="@{/js/user/userChartConfig.js}"></script>
         <script type="text/javascript" th:src="@{/js/user/userResponse.js}"></script>
         <script type="text/javascript" th:src="@{/js/user/userMain.js}"></script>
         <script type="text/javascript" th:src="@{/js/constConfig.js}"></script>

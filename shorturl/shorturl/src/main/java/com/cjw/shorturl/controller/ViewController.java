@@ -61,10 +61,6 @@ public class ViewController {
 	@GetMapping("/user/main")
 	public String userMain(Model model, Authentication authentication) {
 	    MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
-        UserMainPageDTO test = userService.findUserMainDataById(userDetails.getId());
-        log.info("role : " + test.getUserRole());
-        log.info("accessUrl : " + Integer.toString(test.getAccessUrlNum()));
-
 	    model.addAttribute("userData", userService.findUserMainDataById(userDetails.getId()));
 		return "user/main";
 	}
