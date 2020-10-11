@@ -1,8 +1,10 @@
 package com.cjw.shorturl.service;
 
 import com.cjw.shorturl.entity.Url;
+import com.cjw.shorturl.entity.User;
 import com.cjw.shorturl.lib.Base62;
 import com.cjw.shorturl.service.manager.UrlManager;
+import groovy.util.logging.Slf4j;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.mysql.cj.conf.PropertyKey.*;
 import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
@@ -24,11 +27,7 @@ public class MainServiceTest {
     @Autowired
     EntityManager em;
     @Autowired
-    MainService mainService;
-    @Autowired
 	UrlManager urlManager;
-    @Autowired
-    UrlRepository urlRepository;
 
     @Test
     @Rollback(false)
@@ -36,9 +35,7 @@ public class MainServiceTest {
         Url url = new Url();
         url.setOriginalUrl("http://naver.com");
         url.setNameUrl("네이버");
-        Url testUrl = mainService.makeUrl(url);
         Assert.assertEquals("인코딩id 다름", Base62.decode("lJhGK"), 149320775);
-        Assert.assertEquals("awdwad", url, testUrl);
     }
 
     @Test
@@ -48,6 +45,12 @@ public class MainServiceTest {
 
     @Test
     public void 회원칮기() throws Exception {
+
+    }
+
+    @Test
+    public void 유저데이터출력() throws Exception{
+        User user = em.find(User.class, 1);
 
     }
 }

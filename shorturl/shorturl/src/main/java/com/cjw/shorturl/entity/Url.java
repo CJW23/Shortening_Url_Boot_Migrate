@@ -39,4 +39,8 @@ public class Url {
         accessUrls.add(accessUrl);
         accessUrl.setUrl(this);
     }
+
+    public int countAccessUrl(){
+        return accessUrls.size();
+    }
 }

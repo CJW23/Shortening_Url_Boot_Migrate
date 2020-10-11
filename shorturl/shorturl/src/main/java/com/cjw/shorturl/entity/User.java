@@ -67,4 +67,12 @@ public class User {
         user.setPhone(info.getPhone());
         return user;
     }
+
+    public int totalAccessUrlCount(){
+        int total = 0;
+        for(Url url : urls){
+            total += url.countAccessUrl();
+        }
+        return total;
+    }
 }

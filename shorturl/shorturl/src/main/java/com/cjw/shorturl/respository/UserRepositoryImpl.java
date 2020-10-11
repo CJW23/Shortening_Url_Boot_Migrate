@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 @Repository
@@ -43,4 +44,21 @@ public class UserRepositoryImpl{
 	public void removeUser(User user){
 		em.remove(user);
 	}
+
+	public Object findTotalUrlAccessById(Long id) {
+        Query query = em.createQuery(
+            "SELECT new com.cjw.shorturl.dto.DayChartDTO(data.day, data.count)"
+                + "FROM User user, AccessUrl access, Url url "
+                + "WHERE user.id = ?1 AND user.id = url.user_id AND url.id = access.url_id "
+                + "AND function('date_format', access.accessTime, '%Y-%m-%d') BETWEEN (CURRENT_DATE - 7) AND CURRENT_DATE "
+                + "GROUP BY function('date_format', access.accessTime, '%m-%d')").setParameter(1, id);
+
+            //FROM AccessUrl access, User user, Url url
+            //"FROM User user, AccessUrl access, Url url "
+            //  + "WHERE user.id = 1? "
+            //  + "AND user.id = url.user_id "
+            //   "AND url.id = access.url_id)"
+            //   "AND DATE(access.accessTime, '%Y-%m-%d') BETWEEN (NOW() - INTERVAL )
+        )
+    }
 }

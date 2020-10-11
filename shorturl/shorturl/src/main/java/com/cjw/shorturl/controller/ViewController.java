@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import com.cjw.shorturl.dto.CreateUrlResponseDTO;
 import com.cjw.shorturl.dto.SignUpDTO;
 
+import com.cjw.shorturl.dto.UserMainPageDTO;
 import com.cjw.shorturl.service.UserServiceImpl;
 import org.dom4j.rule.Mode;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -60,8 +61,11 @@ public class ViewController {
 	@GetMapping("/user/main")
 	public String userMain(Model model, Authentication authentication) {
 	    MyUserDetails userDetails = (MyUserDetails)authentication.getPrincipal();
-	    model.addAttribute("role", userDetails.getRole());
-	    model.addAttribute("name", userDetails.getName());
+        UserMainPageDTO test = userService.findUserMainDataById(userDetails.getId());
+        log.info("role : " + test.getUserRole());
+        log.info("accessUrl : " + Integer.toString(test.getAccessUrlNum()));
+
+	    model.addAttribute("userData", userService.findUserMainDataById(userDetails.getId()));
 		return "user/main";
 	}
 
