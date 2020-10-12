@@ -1,5 +1,6 @@
 package com.cjw.shorturl.entity;
 
+import com.cjw.shorturl.dto.UrlDetailResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,5 +43,20 @@ public class Url {
 
     public int countAccessUrl(){
         return accessUrls.size();
+    }
+
+    public static UrlDetailResponse makeDetailUrl(Url url){
+        UrlDetailResponse response = new UrlDetailResponse();
+        response.setId(url.getId());
+        response.setCount(url.getCount());
+        response.setCreatedAt(url.getCreatedAt().toString());
+        if(url.getNameUrl() == null){
+            response.setNameUrl(url.getOriginalUrl());
+        } else {
+            response.setNameUrl(url.getNameUrl());
+        }
+        response.setOriginalUrl(url.getOriginalUrl());
+        response.setShortUrl(url.getShortUrl());
+        return response;
     }
 }

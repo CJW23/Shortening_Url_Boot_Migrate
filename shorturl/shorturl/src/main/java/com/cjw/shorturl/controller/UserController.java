@@ -1,10 +1,8 @@
 package com.cjw.shorturl.controller;
 
 import com.cjw.shorturl.ConstConfig;
-import com.cjw.shorturl.dto.CreateUserUrlDTO;
-import com.cjw.shorturl.dto.CreateUrlResponseDTO;
-import com.cjw.shorturl.dto.EditPasswordDTO;
-import com.cjw.shorturl.dto.UserSettingResponseDTO;
+import com.cjw.shorturl.dto.*;
+import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.exception.MakeRandomException;
 import com.cjw.shorturl.exception.SamePasswordException;
 import com.cjw.shorturl.exception.UrlException;
@@ -28,45 +26,50 @@ public class UserController {
     private final UrlServiceImpl urlService;
 
     @PostMapping("/user/create")
-    public CreateUrlResponseDTO userCreate(CreateUserUrlDTO userUrl, Authentication authentication) throws MakeRandomException, UrlException {
+    public CreateUrlResponse userCreate(CreateUserUrlDTO userUrl, Authentication authentication) throws MakeRandomException, UrlException {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         urlService.saveUserUrl(user.getId(), userUrl);
-        return new CreateUrlResponseDTO("true");
+        return new CreateUrlResponse("true");
     }
 
+    @GetMapping("/user/url/detail/{id}")
+    public UrlDetailResponse urlDetail(Authentication authentication, @PathVariable Long id){
+        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        return urlService.findUrlDetail(user.getId(), id);
+    }
     @PutMapping("/user/setting/editInfo")
-    public UserSettingResponseDTO editInfo(Authentication authentication, @RequestParam String name) {
+    public UserSettingResponse editInfo(Authentication authentication, @RequestParam String name) {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         userSettingService.updateUserName(user.getId(), name);
-        return new UserSettingResponseDTO("true");
+        return new UserSettingResponse("true");
     }
 
     @GetMapping("/user/setting/checkNickname")
-    public UserSettingResponseDTO checkNickname(@RequestParam String nickname) {
+    public UserSettingResponse checkNickname(@RequestParam String nickname) {
         return userSettingService.checkNickname(nickname) ?
-                new UserSettingResponseDTO("true") :
-                new UserSettingResponseDTO("false");
+                new UserSettingResponse("true") :
+                new UserSettingResponse("false");
     }
 
     @PutMapping("/user/setting/editNickname")
-    public UserSettingResponseDTO editNickname(Authentication authentication, @RequestParam String nickname) {
+    public UserSettingResponse editNickname(Authentication authentication, @RequestParam String nickname) {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         userSettingService.updateUserNickname(user.getId(), nickname);
-        return new UserSettingResponseDTO("true");
+        return new UserSettingResponse("true");
     }
 
     @PutMapping("/user/setting/editPassword")
-    public UserSettingResponseDTO editPassword(Authentication authentication, EditPasswordDTO editPasswordDTO) throws WrongCurrentPasswordException, SamePasswordException {
+    public UserSettingResponse editPassword(Authentication authentication, EditPasswordDTO editPasswordDTO) throws WrongCurrentPasswordException, SamePasswordException {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         userSettingService.changePassword(user.getId(), editPasswordDTO.getCurrentPassword(), editPasswordDTO.getNewPassword());
-        return new UserSettingResponseDTO("변경 완료", ConstConfig.CORRECT_PASSWORD.getVal());
+        return new UserSettingResponse("변경 완료", ConstConfig.CORRECT_PASSWORD.getVal());
     }
 
     @DeleteMapping("/user/setting/delete")
-    public UserSettingResponseDTO deleteUser(HttpServletRequest request, HttpServletResponse response, Authentication authentication, @RequestParam String password) throws WrongCurrentPasswordException {
+    public UserSettingResponse deleteUser(HttpServletRequest request, HttpServletResponse response, Authentication authentication, @RequestParam String password) throws WrongCurrentPasswordException {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         userSettingService.deleteUser(user.getId(), password);
         authentication.setAuthenticated(false);     //인증 제거
-        return new UserSettingResponseDTO("삭제 완료", ConstConfig.DELETE_COMPLETE.getVal());
+        return new UserSettingResponse("삭제 완료", ConstConfig.DELETE_COMPLETE.getVal());
     }
 }

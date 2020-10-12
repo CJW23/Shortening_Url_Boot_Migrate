@@ -1,8 +1,8 @@
 package com.cjw.shorturl.exception;
 
 import com.cjw.shorturl.ConstConfig;
-import com.cjw.shorturl.dto.CreateUrlResponseDTO;
-import com.cjw.shorturl.dto.UserSettingResponseDTO;
+import com.cjw.shorturl.dto.CreateUrlResponse;
+import com.cjw.shorturl.dto.UserSettingResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,16 +17,16 @@ public class AllExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({WrongCurrentPasswordException.class, SamePasswordException.class})
-    public final UserSettingResponseDTO handleWrongCurrentPassword(Exception e) {
+    public final UserSettingResponse handleWrongCurrentPassword(Exception e) {
         if (e instanceof WrongCurrentPasswordException) {
-            return new UserSettingResponseDTO(e.getMessage(), ConstConfig.WRONG_PASSWORD.getVal());
+            return new UserSettingResponse(e.getMessage(), ConstConfig.WRONG_PASSWORD.getVal());
         } else {
-            return new UserSettingResponseDTO(e.getMessage(), ConstConfig.SAME_PASSWORD.getVal());
+            return new UserSettingResponse(e.getMessage(), ConstConfig.SAME_PASSWORD.getVal());
         }
     }
 
     @ExceptionHandler(UrlException.class)
-    public final CreateUrlResponseDTO handleUrl(Exception e){
-        return new CreateUrlResponseDTO("false", e.getMessage());
+    public final CreateUrlResponse handleUrl(Exception e){
+        return new CreateUrlResponse("false", e.getMessage());
     }
 }

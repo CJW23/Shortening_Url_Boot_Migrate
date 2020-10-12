@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Getter
 @AllArgsConstructor
-public class CreateUrlResponseDTO {
+public class CreateUrlResponse {
     private String rst;
     private String msg;
 
-    public CreateUrlResponseDTO(String rst) {
+    public CreateUrlResponse(String rst) {
         this.rst = rst;
         this.msg = null;
     }

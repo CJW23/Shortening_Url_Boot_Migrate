@@ -61,19 +61,18 @@ function requestUrlDetail(urlId) {
     let id = $(urlId).attr('id');
     $('#spinner'+id).show();
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'get',
-        url: '/url/detail/' + id,
+        url: '/user/url/detail/' + id,
         dataType: 'json',
         success: function (data) {
             $('#empty-select').hide();
             urlDetailResponse(
-                data[0]['id'],
-                data[0]['created_at'],
-                data[0]['name_url'],
-                data[0]['original_url'],
-                data[0]['short_url'],
-                data[0]['count']);
+                data['id'],
+                data['createdAt'],
+                data['nameUrl'],
+                data['originalUrl'],
+                data['shortUrl'],
+                data['count']);
             $('#spinner'+id).hide();
         },
         error: function (data) {
@@ -110,7 +109,6 @@ function requestUrlAccessData() {
     let id = $('#urlId').attr('data-field');
     let result;
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'get',
         url: '/users/data/url/' + id,
         dataType: 'json',

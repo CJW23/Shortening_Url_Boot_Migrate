@@ -6,11 +6,11 @@ import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
-public class UserSettingResponseDTO {
+public class UserSettingResponse {
     private final String rst;
     private final Integer type;
 
-    public UserSettingResponseDTO(String rst){
+    public UserSettingResponse(String rst){
         this.rst = rst;
         this.type = null;
     }

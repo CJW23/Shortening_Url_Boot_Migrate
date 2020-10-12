@@ -46,7 +46,7 @@ function urlDetailResponse(id, createdAt, nameUrl, originalUrl, shortUrl, count)
     $('.detail-created-date').html("CREATED " + dateTime['ymd'] + " " + dateTime['time']);
     $('.detail-name-url').html(nameUrl);
     $('.detail-original-url').attr('href', originalUrl).html(originalUrl);
-    $('.detail-short-url').attr('href', "http://" + shortUrl).html(shortUrl);
+    $('.detail-short-url').attr('href', shortUrl).html(shortUrl);
     $('.detail-count').html("TOTAL : " + count);
     $('#short-url').val(shortUrl);
     $('#exist-select').show();

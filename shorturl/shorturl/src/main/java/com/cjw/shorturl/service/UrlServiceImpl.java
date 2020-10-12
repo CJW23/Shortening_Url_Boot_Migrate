@@ -1,6 +1,7 @@
 package com.cjw.shorturl.service;
 
 import com.cjw.shorturl.dto.CreateUserUrlDTO;
+import com.cjw.shorturl.dto.UrlDetailResponse;
 import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.entity.User;
@@ -28,6 +29,7 @@ public class UrlServiceImpl {
 
     /**
      * 특정 URL Entity의 원본 URL 반환
+     *
      * @param id
      * @return
      */
@@ -37,6 +39,7 @@ public class UrlServiceImpl {
 
     /**
      * Url Entity
+     *
      * @param id
      * @return
      */
@@ -46,6 +49,7 @@ public class UrlServiceImpl {
 
     /**
      * UrlAccess 저장
+     *
      * @param accessUrl
      */
     @Transactional
@@ -55,6 +59,7 @@ public class UrlServiceImpl {
 
     /**
      * 단축 URL Entity 생성
+     *
      * @param url Entity
      * @return url Entity
      * @throws Exception
@@ -79,15 +84,15 @@ public class UrlServiceImpl {
 
     private Url makeUserUrl(Long id, CreateUserUrlDTO userUrl) throws MakeRandomException, UrlException {
         Url url = new Url();
-        if(!urlManager.checkUrlRegex(userUrl.getUrl())){
+        if (!urlManager.checkUrlRegex(userUrl.getUrl())) {
             url.setOriginalUrl("http://" + userUrl.getUrl());
         } else {
             url.setOriginalUrl(userUrl.getUrl());
         }
-        if(!urlManager.checkExistUrl(userUrl.getUrl())){
+        if (!urlManager.checkExistUrl(userUrl.getUrl())) {
             throw new UrlException("존재하지 않는 URL");
         }
-        if(!urlManager.checkAlreadyUrl(id, url.getOriginalUrl())){
+        if (!urlManager.checkAlreadyUrl(id, url.getOriginalUrl())) {
             throw new UrlException("이미 존재하는 URL");
         }
         int randomId = urlManager.makeRandom();
@@ -95,8 +100,10 @@ public class UrlServiceImpl {
         url.setId((long) randomId);
         return url;
     }
+
     /**
      * URL 등록
+     *
      * @param url
      * @return
      * @throws Exception
@@ -116,5 +123,10 @@ public class UrlServiceImpl {
         Url url = makeUserUrl(id, userUrl);
         url.setUser(em.find(User.class, id));
         urlRepository.save(url);
+    }
+
+    public UrlDetailResponse findUrlDetail(Long userId, Long urlId) {
+        Url detail= urlRepository.findUrlDetail(userId, urlId);
+        return Url.makeDetailUrl(detail);
     }
 }
