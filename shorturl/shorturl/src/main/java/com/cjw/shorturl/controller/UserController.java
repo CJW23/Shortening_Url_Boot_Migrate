@@ -9,6 +9,7 @@ import com.cjw.shorturl.exception.UrlException;
 import com.cjw.shorturl.exception.WrongCurrentPasswordException;
 import com.cjw.shorturl.security.MyUserDetails;
 import com.cjw.shorturl.service.UrlServiceImpl;
+import com.cjw.shorturl.service.UserServiceImpl;
 import com.cjw.shorturl.service.UserSettingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,26 +18,46 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor    //선언한 객체들에 대한 생성자 자동 생성
 @Slf4j
 public class UserController {
     private final UserSettingService userSettingService;
+    private final UserServiceImpl userService;
     private final UrlServiceImpl urlService;
 
     @PostMapping("/user/create")
-    public CreateUrlResponse userCreate(CreateUserUrlDTO userUrl, Authentication authentication) throws MakeRandomException, UrlException {
+    public List<UserMainUrlDTO> userCreate(CreateUserUrlDTO userUrl, Authentication authentication) throws MakeRandomException, UrlException {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         urlService.saveUserUrl(user.getId(), userUrl);
-        return new CreateUrlResponse("true");
+        return userService.findUrlListByUserId(user.getId());
+    }
+
+    @GetMapping("/user/data/total")
+    public UserTotalDataDTO userTotal(Authentication authentication) {
+        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        return userService.findTotalUrlData(user.getId());
+    }
+
+    @GetMapping("/user/data/url/{id}")
+    public List<DayChartDTO> urlAccessChart(@PathVariable Long id) {
+        //api 보안은??
+        return userService.findUrlAccessData(id);
+    }
+
+    @GetMapping("/user/data/link/{id}")
+    public List<LinkChartDTO> urlLinkChart(@PathVariable Long id){
+        return userService.findUrlLinkData(id);
     }
 
     @GetMapping("/user/url/detail/{id}")
-    public UrlDetailResponse urlDetail(Authentication authentication, @PathVariable Long id){
+    public UrlDetailResponse urlDetail(Authentication authentication, @PathVariable Long id) {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         return urlService.findUrlDetail(user.getId(), id);
     }
+
     @PutMapping("/user/setting/editInfo")
     public UserSettingResponse editInfo(Authentication authentication, @RequestParam String name) {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();

@@ -42,8 +42,8 @@ function makeLinkData(data) {
     let linkName = [];
     let linkCount = [];
     for(let i = 0; i<data.length; i++){
-        linkName.push(data[i]['before_url']);
-        linkCount.push(data[i]['cnt']);
+        linkName.push(data[i]['dates']);
+        linkCount.push(data[i]['count']);
     }
     return {
         'linkName': linkName,

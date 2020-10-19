@@ -5,6 +5,7 @@
  * @param data
  */
 function createUrlResponse(data) {
+    console.log(JSON.stringify(data));
     //예외 처리->(금지 URL, 이미 등록 URL, 존재하지 않는 URL)
     if (data['rst'] === "false") {
         $('#url_register_help').html(data['msg']);
@@ -158,16 +159,16 @@ function makeUserUrlTemplate(datas) {
             "<input type='checkbox' id='" + data['id'] + "' name='url-check' onclick='urlCheck()' style='float: right'>" +
             "<div id='" + data['id'] + "' onclick='requestUrlDetail(this)'>" +
             "<div class='original-url-text'>" +
-            data['name'] +
+            data['nameUrl'] +
             "</div>" +
             "<div class='container'>" +
             "<div class='shortening-url-text row justify-content-between'>" +
             "<div>" +
-            data['short_url'] +
+            data['shortUrl'] +
             "</div>" +
             "<div class='spinner-border' id='spinner" + data['id'] + "' role='status' style='display: none'></div> " +
             "<div class='url-count'>" +
-            data['count'] + "<img src='/images/graph.png' height='25' width='25' style='float:right; margin-left: 5px;'>" +
+            data['count'] +
             "</div>" +
             "</div>" +
             "</div>" +

@@ -87,12 +87,11 @@ function requestUrlDetail(urlId) {
  */
 function requestTotalData() {
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'get',
-        url: '/users/data/total',
+        url: '/user/data/total',
         dataType: 'json',
         success: function (data) {
-            totalDataResponse(data[0]['total_num'], data[0]['total_sum']);
+            totalDataResponse(data['totalNum'], data['totalSum']);
         },
         error: function (data) {
             console.log('에러 발생');
@@ -110,7 +109,7 @@ function requestUrlAccessData() {
     let result;
     $.ajax({
         type: 'get',
-        url: '/users/data/url/' + id,
+        url: '/user/data/url/' + id,
         dataType: 'json',
         async: false,
         success: function (data) {
@@ -135,7 +134,7 @@ function requestLinkAccessData() {
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'get',
-        url: '/users/data/link/' + id,
+        url: '/user/data/link/' + id,
         dataType: 'json',
         async: false,
         success: function (data) {
