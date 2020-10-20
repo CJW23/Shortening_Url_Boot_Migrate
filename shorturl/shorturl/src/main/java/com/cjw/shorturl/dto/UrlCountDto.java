@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Component
-public class UrlCountDTO {
+public class UrlCountDto {
     int UrlCount;
     int UrlAccessCount;
 }

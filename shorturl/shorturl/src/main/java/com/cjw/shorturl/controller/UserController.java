@@ -2,7 +2,6 @@ package com.cjw.shorturl.controller;
 
 import com.cjw.shorturl.ConstConfig;
 import com.cjw.shorturl.dto.*;
-import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.exception.MakeRandomException;
 import com.cjw.shorturl.exception.SamePasswordException;
 import com.cjw.shorturl.exception.UrlException;
@@ -29,33 +28,33 @@ public class UserController {
     private final UrlServiceImpl urlService;
 
     @PostMapping("/user/create")
-    public List<UserMainUrlDTO> userCreate(CreateUserUrlDTO userUrl, Authentication authentication) throws MakeRandomException, UrlException {
+    public List<UserMainUrlDto> userCreate(CreateUserUrlDto userUrl, Authentication authentication) throws MakeRandomException, UrlException {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         urlService.saveUserUrl(user.getId(), userUrl);
         return userService.findUrlListByUserId(user.getId());
     }
 
     @DeleteMapping("/user/url/delete")
-    public List<UserMainUrlDTO> urlDelete(@RequestParam(value="deleteList[]") List<Long> deleteList, Authentication authentication){
+    public List<UserMainUrlDto> urlDelete(@RequestParam(value="deleteList[]") List<Long> deleteList, Authentication authentication){
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         userService.removeUrlById(deleteList);
         return userService.findUrlListByUserId(user.getId());
     }
 
     @GetMapping("/user/data/total")
-    public UserTotalDataDTO userTotal(Authentication authentication) {
+    public UserTotalDataDto userTotal(Authentication authentication) {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         return userService.findTotalUrlData(user.getId());
     }
 
     @GetMapping("/user/data/url/{id}")
-    public List<DayChartDTO> urlAccessChart(@PathVariable Long id) {
+    public List<DayChartDto> urlAccessChart(@PathVariable Long id) {
         //api 보안은??
         return userService.findUrlAccessData(id);
     }
 
     @GetMapping("/user/data/link/{id}")
-    public List<LinkChartDTO> urlLinkChart(@PathVariable Long id){
+    public List<LinkChartDto> urlLinkChart(@PathVariable Long id){
         return userService.findUrlLinkData(id);
     }
 
@@ -87,7 +86,7 @@ public class UserController {
     }
 
     @PutMapping("/user/setting/editPassword")
-    public UserSettingResponse editPassword(Authentication authentication, EditPasswordDTO editPasswordDTO) throws WrongCurrentPasswordException, SamePasswordException {
+    public UserSettingResponse editPassword(Authentication authentication, EditPasswordDto editPasswordDTO) throws WrongCurrentPasswordException, SamePasswordException {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         userSettingService.changePassword(user.getId(), editPasswordDTO.getCurrentPassword(), editPasswordDTO.getNewPassword());
         return new UserSettingResponse("변경 완료", ConstConfig.CORRECT_PASSWORD.getVal());

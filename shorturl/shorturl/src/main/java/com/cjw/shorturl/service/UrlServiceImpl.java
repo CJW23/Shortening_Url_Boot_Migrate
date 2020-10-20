@@ -1,6 +1,6 @@
 package com.cjw.shorturl.service;
 
-import com.cjw.shorturl.dto.CreateUserUrlDTO;
+import com.cjw.shorturl.dto.CreateUserUrlDto;
 import com.cjw.shorturl.dto.UrlDetailResponse;
 import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
@@ -57,6 +57,10 @@ public class UrlServiceImpl {
         urlRepository.saveUrlAccess(accessUrl);
     }
 
+    @Transactional
+    public void upUrlCount(Url url) {
+        url.setCount(url.getCount() + 1);
+    }
     /**
      * 단축 URL Entity 생성
      *
@@ -82,7 +86,7 @@ public class UrlServiceImpl {
         return url;
     }
 
-    private Url makeUserUrl(Long id, CreateUserUrlDTO userUrl) throws MakeRandomException, UrlException {
+    private Url makeUserUrl(Long id, CreateUserUrlDto userUrl) throws MakeRandomException, UrlException {
         Url url = new Url();
         if (!urlManager.checkUrlRegex(userUrl.getUrl())) {
             url.setOriginalUrl("http://" + userUrl.getUrl());
@@ -125,7 +129,7 @@ public class UrlServiceImpl {
     }
 
     @Transactional
-    public void saveUserUrl(Long id, CreateUserUrlDTO userUrl) throws MakeRandomException, UrlException {
+    public void saveUserUrl(Long id, CreateUserUrlDto userUrl) throws MakeRandomException, UrlException {
         Url url = makeUserUrl(id, userUrl);
         url.setUser(em.find(User.class, id));
         urlRepository.save(url);

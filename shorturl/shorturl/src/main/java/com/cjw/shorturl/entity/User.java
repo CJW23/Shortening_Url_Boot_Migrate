@@ -1,6 +1,6 @@
 package com.cjw.shorturl.entity;
 
-import com.cjw.shorturl.dto.SignUpDTO;
+import com.cjw.shorturl.dto.SignUpDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class User {
     }
 
 
-    public static User makeSignUpUser(SignUpDTO info){
+    public static User makeSignUpUser(SignUpDto info){
         User user = new User();
         user.setEmail(info.getEmail());
         user.setName(info.getName());

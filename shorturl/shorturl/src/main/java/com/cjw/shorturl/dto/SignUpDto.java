@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Component
-public class SignUpDTO {
+public class SignUpDto {
 	@NotBlank(message = "이메일 공백")
 	private String email;
 	private String password;

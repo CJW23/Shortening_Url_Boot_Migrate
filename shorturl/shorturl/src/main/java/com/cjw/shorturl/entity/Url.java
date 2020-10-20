@@ -1,12 +1,9 @@
 package com.cjw.shorturl.entity;
 
-import com.cjw.shorturl.dto.UrlDetailResponse;
-import com.cjw.shorturl.dto.UserMainUrlDTO;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

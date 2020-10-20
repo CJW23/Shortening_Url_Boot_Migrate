@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.json.JSONParser;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +20,7 @@ public class UserMainPageDTO {
     String userRole;
     String userName;
 
-    public static UserMainPageDTO makeUserMainPage(User user, List<DayChartDTO> totalAccessUrlList){
+    public static UserMainPageDTO makeUserMainPage(User user, List<DayChartDto> totalAccessUrlList){
         UserMainPageDTO userMainPage = new UserMainPageDTO();
         userMainPage.setUrlList(user.getUrls());
         userMainPage.setTotalUrlNum(user.getUrls().size());

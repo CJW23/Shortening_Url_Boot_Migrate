@@ -12,17 +12,17 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class UserMainUrlDTO {
+public class UserMainUrlDto {
     private Long id;
     private String shortUrl;
     private Long userId;
     private String nameUrl;
     private long count;
 
-    public static List<UserMainUrlDTO> makeUserUrlList(List<Url> list) {
-        List<UserMainUrlDTO> urlList = new ArrayList<>();
+    public static List<UserMainUrlDto> makeUserUrlList(List<Url> list) {
+        List<UserMainUrlDto> urlList = new ArrayList<>();
         for(Url url : list){
-            UserMainUrlDTO urlDTO = new UserMainUrlDTO(url.getId(), url.getShortUrl(), url.getUser().getId(), url.getNameUrl(), url.getCount());
+            UserMainUrlDto urlDTO = new UserMainUrlDto(url.getId(), url.getShortUrl(), url.getUser().getId(), url.getNameUrl(), url.getCount());
             if(urlDTO.getNameUrl().equals("")){
                 urlDTO.setNameUrl(url.getOriginalUrl());
             }

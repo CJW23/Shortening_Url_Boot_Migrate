@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 @Getter
@@ -11,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class LinkChartDTO {
-    private String beforeUrl;
-    private int cnt;
+public class DayChartDto {
+    private String dates;
+    private int count;
 }

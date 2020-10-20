@@ -34,6 +34,7 @@ public class UrlController {
         accessUrl.setUrl(url);
         accessUrl.setBeforeUrl(null);   //추후 구현
         urlService.saveUrlAccess(accessUrl);
+        urlService.upUrlCount(url);
         return "redirect:" + url.getOriginalUrl();
     }
 }

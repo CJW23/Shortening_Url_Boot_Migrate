@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserTotalDataDTO {
+public class UserTotalDataDto {
     private long totalNum;
     private long totalSum;
 }

@@ -1,6 +1,6 @@
 package com.cjw.shorturl.controller;
 
-import com.cjw.shorturl.dto.SignUpDTO;
+import com.cjw.shorturl.dto.SignUpDto;
 
 import com.cjw.shorturl.service.UserServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,7 @@ public class ViewController {
 	 */
 	@GetMapping("/signUp")
 	public String signUp(Model model) {
-		model.addAttribute("signUpDTO", new SignUpDTO());
+		model.addAttribute("signUpDTO", new SignUpDto());
 		return "auth/signup";
 	}
 
