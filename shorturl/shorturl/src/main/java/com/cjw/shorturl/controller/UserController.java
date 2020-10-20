@@ -35,6 +35,13 @@ public class UserController {
         return userService.findUrlListByUserId(user.getId());
     }
 
+    @DeleteMapping("/user/url/delete")
+    public List<UserMainUrlDTO> urlDelete(@RequestParam(value="deleteList[]") List<Long> deleteList, Authentication authentication){
+        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        userService.removeUrlById(deleteList);
+        return userService.findUrlListByUserId(user.getId());
+    }
+
     @GetMapping("/user/data/total")
     public UserTotalDataDTO userTotal(Authentication authentication) {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();

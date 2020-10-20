@@ -16,7 +16,6 @@ function requestCreateUrl() {
     $('#register-spinner').show();
 
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'post',
         url: '/user/create',
         dataType: 'json',
@@ -39,12 +38,11 @@ function requestRemoveUrl() {
     $('input:checkbox[name=url-check]:checked').each(function () {
         deleteList.push(this.id);           //체크된 URL들 배열에 넣음
     });
+    console.log(deleteList);
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'delete',
-        url: '/users/urls/delete',
-        dataType: 'json',
-        data: {'urlIdList': deleteList},
+        url: '/user/url/delete',
+        data: {'deleteList' : deleteList},
         success: function (data) {
             removeUrlResponse(data);
         },
@@ -132,7 +130,6 @@ function requestLinkAccessData() {
     let result;
     $.ajax({
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'get',
         url: '/user/data/link/' + id,
         dataType: 'json',

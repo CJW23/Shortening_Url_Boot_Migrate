@@ -49,7 +49,7 @@ public class User {
     @Column(columnDefinition = "VARCHAR(5) DEFAULT 'USER'")
     private String role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Url> urls = new ArrayList<>();
 
     public void addUrl(Url url){

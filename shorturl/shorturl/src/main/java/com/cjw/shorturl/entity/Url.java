@@ -35,7 +35,7 @@ public class Url {
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date createdAt;
 
-    @OneToMany(mappedBy = "url")
+    @OneToMany(mappedBy = "url", cascade = CascadeType.ALL)
     private List<AccessUrl> accessUrls = new ArrayList<>();
 
     public void addAccessUrl(AccessUrl accessUrl) {

@@ -46,6 +46,14 @@ public class UserServiceImpl {
         return UserMainPageDTO.makeUserMainPage(em.find(User.class, id), totalUrlAccessList);
     }
 
+    @Transactional
+    public void removeUrlById(List<Long> urlList){
+        for(Long urlId : urlList){
+            Url url = em.find(Url.class, urlId);
+            em.remove(url);
+        }
+    }
+
     public UserTotalDataDTO findTotalUrlData(Long userId) {
         User user = em.find(User.class, userId);
         return new UserTotalDataDTO(user.getUrls().size(), user.totalAccessUrlCount());

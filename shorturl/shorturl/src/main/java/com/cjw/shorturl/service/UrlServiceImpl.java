@@ -96,7 +96,11 @@ public class UrlServiceImpl {
             throw new UrlException("이미 존재하는 URL");
         }
         int randomId = urlManager.makeRandom();
-        url.setNameUrl(userUrl.getNameUrl());
+        if(userUrl.getNameUrl().equals("")){
+            url.setNameUrl(url.getOriginalUrl());
+        } else {
+            url.setNameUrl(userUrl.getNameUrl());
+        }
         url.setShortUrl("http://localhost:8080/a/" + Base62.encode(randomId));
         url.setId((long) randomId);
         url.setCount(0);
