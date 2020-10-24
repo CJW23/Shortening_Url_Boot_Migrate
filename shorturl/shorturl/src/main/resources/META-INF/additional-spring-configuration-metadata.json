@@ -4,5 +4,15 @@
       "name": "spring.jpa.hibernate.format_sql",
       "type": "java.lang.String",
       "description": "Description for spring.jpa.hibernate.format_sql."
-  }
-] }
+    },
+    {
+      "name": "mybatis.type-aliases-package",
+      "type": "java.lang.String",
+      "description": "Description for mybatis.type-aliases-package."
+    },
+    {
+      "name": "mybatis.type-aliases-package",
+      "type": "java.lang.String",
+      "description": "Description for mybatis.type-aliases-package."
+    }
+  ] }

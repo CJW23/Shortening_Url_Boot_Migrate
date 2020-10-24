@@ -1,7 +1,7 @@
 package com.cjw.shorturl.service.manager;
 
 import com.cjw.shorturl.exception.MakeRandomException;
-import com.cjw.shorturl.respository.UrlRepositoryImpl;
+import com.cjw.shorturl.repository.UrlRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,5 +1,6 @@
-package com.cjw.shorturl.respository;
+package com.cjw.shorturl.repository;
 
+import com.cjw.shorturl.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -83,4 +84,5 @@ public class AdminRepository {
                                 "ORDER BY dates");
         return ((List<Object[]>) query.getResultList());
     }
+
 }

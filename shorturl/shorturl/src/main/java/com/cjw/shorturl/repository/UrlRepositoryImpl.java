@@ -1,4 +1,4 @@
-package com.cjw.shorturl.respository;
+package com.cjw.shorturl.repository;
 
 import com.cjw.shorturl.entity.AccessUrl;
 import com.cjw.shorturl.entity.Url;
@@ -8,9 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor

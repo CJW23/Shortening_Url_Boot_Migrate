@@ -1,7 +1,7 @@
 package com.cjw.shorturl.service;
 
 import com.cjw.shorturl.entity.User;
-import com.cjw.shorturl.respository.UserRepositoryImpl;
+import com.cjw.shorturl.repository.UserRepositoryImpl;
 import com.cjw.shorturl.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

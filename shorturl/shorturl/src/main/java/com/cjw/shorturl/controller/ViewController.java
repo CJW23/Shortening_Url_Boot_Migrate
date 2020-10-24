@@ -2,6 +2,7 @@ package com.cjw.shorturl.controller;
 
 import com.cjw.shorturl.dto.SignUpDto;
 
+import com.cjw.shorturl.entity.User;
 import com.cjw.shorturl.service.AdminService;
 import com.cjw.shorturl.service.UserServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.cjw.shorturl.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -111,7 +114,13 @@ public class ViewController {
     }
 
     @GetMapping("/admin/userManage")
-    public String adminUserManage() {
+    public String adminUserManage(Model model) throws Exception {
+        List<User> list = adminService.getUserList();
+        for(User i : list){
+            log.info(i.getEmail());
+        }
+        model.addAttribute("user", adminService.getUserList());
+
         return "/admin/user_manage";
     }
 

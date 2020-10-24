@@ -2,13 +2,13 @@ package com.cjw.shorturl.service;
 
 import com.cjw.shorturl.dto.AdminMainPageDto;
 import com.cjw.shorturl.dto.DayChartDto;
-import com.cjw.shorturl.dto.UserMainPageDto;
-import com.cjw.shorturl.respository.AdminRepository;
+import com.cjw.shorturl.entity.User;
+import com.cjw.shorturl.repository.AdminRepository;
+import com.cjw.shorturl.repository.AdminMapper;
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminService {
     private final AdminRepository adminRepository;
+    private final AdminMapper adminSearchRepository;
 
     public AdminMainPageDto getAdminData() {
         List<DayChartDto> dayUserList = new ArrayList<>();
@@ -43,5 +44,9 @@ public class AdminService {
                 dayUserList,
                 dayUrlList,
                 dayAccessList);
+    }
+
+    public List<User> getUserList() throws Exception {
+        return adminSearchRepository.findUserBySearch();
     }
 }

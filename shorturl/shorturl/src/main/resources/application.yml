@@ -19,3 +19,6 @@ logging:
   level:
     org:hibernate:SQL: DEBUG
 
+mybatis:
+  #type-aliases-package: com.cjw.shorturl
+  mapper-locations: mapper/**/*.xml

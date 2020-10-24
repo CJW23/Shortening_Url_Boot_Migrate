@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import com.cjw.shorturl.dto.*;
 import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.entity.User;
-import com.cjw.shorturl.respository.UserRepositoryImpl;
+import com.cjw.shorturl.repository.UserRepositoryImpl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

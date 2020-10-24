@@ -3,7 +3,7 @@ package com.cjw.shorturl.service;
 import com.cjw.shorturl.entity.User;
 import com.cjw.shorturl.exception.SamePasswordException;
 import com.cjw.shorturl.exception.WrongCurrentPasswordException;
-import com.cjw.shorturl.respository.UserRepositoryImpl;
+import com.cjw.shorturl.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

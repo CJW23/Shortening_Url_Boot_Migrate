@@ -8,7 +8,7 @@ import com.cjw.shorturl.entity.User;
 import com.cjw.shorturl.exception.MakeRandomException;
 import com.cjw.shorturl.exception.UrlException;
 import com.cjw.shorturl.lib.Base62;
-import com.cjw.shorturl.respository.UrlRepositoryImpl;
+import com.cjw.shorturl.repository.UrlRepositoryImpl;
 import com.cjw.shorturl.service.manager.UrlManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
