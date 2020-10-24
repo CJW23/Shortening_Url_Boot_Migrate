@@ -2,6 +2,7 @@ package com.cjw.shorturl.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@DynamicInsert
 public class AccessUrl {
     @Id
     @GeneratedValue

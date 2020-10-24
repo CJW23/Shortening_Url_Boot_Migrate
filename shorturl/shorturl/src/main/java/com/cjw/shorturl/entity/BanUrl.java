@@ -2,6 +2,7 @@ package com.cjw.shorturl.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@DynamicInsert
 public class BanUrl {
     @Id
     @GeneratedValue

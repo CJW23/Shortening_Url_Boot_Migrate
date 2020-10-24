@@ -107,7 +107,6 @@ public class UrlServiceImpl {
         }
         url.setShortUrl("http://localhost:8080/a/" + Base62.encode(randomId));
         url.setId((long) randomId);
-        url.setCount(0);
         return url;
     }
 
