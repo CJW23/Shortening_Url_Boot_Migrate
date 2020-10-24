@@ -2,6 +2,7 @@ package com.cjw.shorturl.controller;
 
 import com.cjw.shorturl.dto.SignUpDto;
 
+import com.cjw.shorturl.service.AdminService;
 import com.cjw.shorturl.service.UserServiceImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ViewController {
     private final UserServiceImpl userService;
+    private final AdminService adminService;
 
     /**
      * 회원가입 페이지
@@ -103,7 +105,8 @@ public class ViewController {
      * 관리자 관리 페이지
      */
     @GetMapping("/admin/main")
-    public String adminMain() {
+    public String adminMain(Model model) {
+        model.addAttribute("adminData", adminService.getAdminData());
         return "/admin/main";
     }
 

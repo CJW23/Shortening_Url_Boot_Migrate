@@ -38,7 +38,7 @@ public class AdminRepository {
     public int findTotalAccessUrlCount() {
         Query query =
                 em.createNativeQuery(
-                        "SELET count(1) AS accessCount FROM access_url");
+                        "SELECT count(1) AS accessCount FROM access_url");
         return ((List<Object[]>) query.getResultList()).size();
     }
 

@@ -35,13 +35,13 @@ public class UserServiceImpl {
         return userRepository.findUserByEmail(email);
     }
 
-    public UserMainPageDTO findUserMainDataById(Long id) {
+    public UserMainPageDto findUserMainDataById(Long id) {
         List<DayChartDto> totalUrlAccessList = new ArrayList<>();
         for (Object[] a : userRepository.findTotalUrlAccessById(id)) {
             DayChartDto tmp = new DayChartDto((String) a[0], ((BigDecimal) a[1]).intValue());
             totalUrlAccessList.add(tmp);
         }
-        return UserMainPageDTO.makeUserMainPage(em.find(User.class, id), totalUrlAccessList);
+        return UserMainPageDto.makeUserMainPage(em.find(User.class, id), totalUrlAccessList);
     }
 
     @Transactional

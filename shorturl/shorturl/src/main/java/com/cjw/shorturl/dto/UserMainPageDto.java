@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class UserMainPageDTO {
+public class UserMainPageDto {
     List<Url> urlList;
     String totalAccessUrlList;
     int totalUrlNum;
@@ -20,8 +20,8 @@ public class UserMainPageDTO {
     String userRole;
     String userName;
 
-    public static UserMainPageDTO makeUserMainPage(User user, List<DayChartDto> totalAccessUrlList){
-        UserMainPageDTO userMainPage = new UserMainPageDTO();
+    public static UserMainPageDto makeUserMainPage(User user, List<DayChartDto> totalAccessUrlList){
+        UserMainPageDto userMainPage = new UserMainPageDto();
         userMainPage.setUrlList(user.getUrls());
         userMainPage.setTotalUrlNum(user.getUrls().size());
         userMainPage.setAccessUrlNum(user.totalAccessUrlCount());
