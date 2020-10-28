@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.cjw.shorturl.repository.AdminMapper">
-    <select id="findUserBySearch" resultType="com.cjw.shorturl.entity.User">
-        SELECT * FROM User;
-  </select>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjw.shorturl.repository.AdminSearchRepository">
+    <select id="findSearchUser" resultType="com.cjw.shorturl.entity.User">
+        SELECT user_id AS id, created_at AS createdAt, email, name, nickname, phone, role
+        FROM user
+        WHERE 1=1
+        <if test="keyword == 'total'">
+            AND (email LIKE CONCAT('%',#{search},'%') OR
+                 nickname LIKE CONCAT('%',#{search},'%') OR
+                 name LIKE CONCAT('%',#{search},'%'))
+        </if>
+        <if test="keyword == 'name'">
+            AND name LIKE CONCAT('%',#{search},'%')
+        </if>
+        <if test="keyword == 'nickname'">
+            AND nickname LIKE CONCAT('%',#{search},'%')
+        </if>
+        <if test="keyword == 'email'">
+            AND email LIKE CONCAT('%',#{search},'%')
+        </if>
+        ORDER BY id DESC
+    </select>
+    <select id="findSearchUrl" resultType="com.cjw.shorturl.entity.Url">
+        SELECT
+            url_id AS id,
+            created_at AS createdAt,
+            count,
+            name_url AS nameUrl,
+            original_url AS originalUrl,
+            short_url AS shortUrl
+        FROM url
+        WHERE 1=1
+        <if test="keyword == 'total'">
+            AND (original_url LIKE CONCAT('%',#{search},'%') OR
+            short_url LIKE CONCAT('%',#{search},'%'))
+        </if>
+        <if test="keyword == 'originalUrl'">
+            AND original_url LIKE CONCAT('%',#{search},'%')
+        </if>
+        <if test="keyword == 'shortUrl'">
+            AND short_url LIKE CONCAT('%',#{search},'%')
+        </if>
+        ORDER BY id DESC
+    </select>
+    <select id="findSearchBanUrl" resultType="com.cjw.shorturl.entity.BanUrl">
+        SELECT
+            ban_url_id AS id,
+            created_at AS createdAt,
+            url
+        FROM ban_url
+    </select>
 </mapper>
+

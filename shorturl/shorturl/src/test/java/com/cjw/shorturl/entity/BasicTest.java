@@ -21,7 +21,6 @@ public class BasicTest {
     public void 회원가입() throws Exception {
         User user = new User();
         user.setName("test1");
-        user.setAdmin(0);
         user.setEmail("awdawd");
         user.setNickname("xcxc");
         user.setPassword("zsc");

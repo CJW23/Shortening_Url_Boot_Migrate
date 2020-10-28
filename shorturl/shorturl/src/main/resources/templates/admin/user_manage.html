@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/admin"lang="en">
+      layout:decorator="layout/admin"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,7 +10,8 @@
 <body>
 <div layout:fragment="menu">
     <a href="/admin/main" class="list-group-item list-group-item-action">통계</a>
-    <a href="/admin/userManage" class="list-group-item list-group-item-action" style="border-left: 2px solid red">유저 관리</a>
+    <a href="/admin/userManage" class="list-group-item list-group-item-action" style="border-left: 2px solid red">유저
+        관리</a>
     <a href="/admin/urlManage" class="list-group-item list-group-item-action">URL 관리</a>
     <a href="/admin/banUrlManage" class="list-group-item list-group-item-action">차단 URL 관리</a>
 </div>
@@ -43,21 +45,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="user" id="{{$user->id}}">
-            <th >{{$user->name}}</th>
-            <td>{{$user->email}}</td>
-            <td>{{$user->nickname}}</td>
-            <td>{{$user->created_at}}</td>
-            @if($user->admin == 0)
-            <td>
+        <tr class="user" th:each="user : ${users.getList()}" th:id="${user.getId()}">
+            <th th:text="${user.getName()}"></th>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getNickname()}"></td>
+            <td th:text="${user.getCreatedAt().toString()}"></td>
+            <td sec:authorize="hasRole('ROLE_USER')">
                 <button class="btn btn-outline-primary" onclick="requestAdminGiveAuth(this)">관리자 권한 부여</button>
             </td>
-            @else
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <button class="btn btn-outline-success" onclick="requestAdminWithdrawAuth(this)">관리자 권한 회수
                 </button>
             </td>
-            @endif
             <td>
                 <button class="btn btn-outline-danger" onclick="requestAdminDeleteUser(this)">삭제</button>
             </td>
@@ -65,7 +64,24 @@
 
         </tbody>
     </table>
-    {{$users->links()}}
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${users.getPrePage() == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/userManage(pageNum=${users.getPrePage()}, keyword=${search.getKeyword()}, search=${search.getSearch()})}"
+                   tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(users.getNavigateFirstPage(), users.getNavigateLastPage())}"
+                class="page-item" th:classappend="${page == users.getPageNum()} ? 'active'">
+                <a class="page-link" th:text="${page}"
+                   th:href="@{/admin/userManage(pageNum=${page}, keyword=${search.getKeyword()}, search=${search.getSearch()})}"></a>
+            </li>
+            <li class="page-item" th:classappend="${users.getNextPage() == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/userManage(pageNum=${users.getNextPage()}, keyword=${search.getKeyword()}, search=${search.getSearch()})}">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </body>
 </html>

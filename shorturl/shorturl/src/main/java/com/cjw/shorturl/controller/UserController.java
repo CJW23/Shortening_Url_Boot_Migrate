@@ -2,19 +2,27 @@ package com.cjw.shorturl.controller;
 
 import com.cjw.shorturl.ConstConfig;
 import com.cjw.shorturl.dto.*;
+import com.cjw.shorturl.entity.Url;
+import com.cjw.shorturl.entity.User;
 import com.cjw.shorturl.exception.MakeRandomException;
 import com.cjw.shorturl.exception.SamePasswordException;
 import com.cjw.shorturl.exception.UrlException;
 import com.cjw.shorturl.exception.WrongCurrentPasswordException;
 import com.cjw.shorturl.security.MyUserDetails;
+import com.cjw.shorturl.service.AdminService;
 import com.cjw.shorturl.service.UrlServiceImpl;
 import com.cjw.shorturl.service.UserServiceImpl;
 import com.cjw.shorturl.service.UserSettingService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -26,6 +34,8 @@ public class UserController {
     private final UserSettingService userSettingService;
     private final UserServiceImpl userService;
     private final UrlServiceImpl urlService;
+    private final AdminService adminService;
+    private final EntityManager em;
 
     @PostMapping("/user/create")
     public List<UserMainUrlDto> userCreate(CreateUserUrlDto userUrl, Authentication authentication) throws MakeRandomException, UrlException {
@@ -35,7 +45,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/url/delete")
-    public List<UserMainUrlDto> urlDelete(@RequestParam(value="deleteList[]") List<Long> deleteList, Authentication authentication){
+    public List<UserMainUrlDto> urlDelete(@RequestParam(value = "deleteList[]") List<Long> deleteList, Authentication authentication) {
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         userService.removeUrlById(deleteList);
         return userService.findUrlListByUserId(user.getId());
@@ -54,7 +64,7 @@ public class UserController {
     }
 
     @GetMapping("/user/data/link/{id}")
-    public List<LinkChartDto> urlLinkChart(@PathVariable Long id){
+    public List<LinkChartDto> urlLinkChart(@PathVariable Long id) {
         return userService.findUrlLinkData(id);
     }
 
@@ -99,4 +109,31 @@ public class UserController {
         authentication.setAuthenticated(false);     //인증 제거
         return new UserSettingResponse("삭제 완료", ConstConfig.DELETE_COMPLETE.getVal());
     }
+
+    @GetMapping("/admin/testMake")
+    @Transactional
+    public String testMake() {
+        for (long i = 10; i < 100; i++) {
+            /*User user = new User();
+            user.setEmail("test" + i);
+            user.setPassword("test" + i);
+            user.setNickname("test" + i);
+            user.setName("test" + i);
+            user.setRole("USER");
+            user.setPhone("awd");*/
+            Url url = new Url();
+            url.setOriginalUrl("test" + i);
+            url.setShortUrl("test" + i);
+            url.setId(i);
+            em.persist(url);
+        }
+        return "ok";
+    }
+    /*@GetMapping("/a/userManage")
+    public PageInfo<User> adminUserManage(@ModelAttribute UserSearchDto search,
+                                          @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        //Page<User> p = adminService.getUserList(pageNo, search);
+        model.addAttribute("users", p);
+        return new PageInfo<>(p);
+    }*/
 }

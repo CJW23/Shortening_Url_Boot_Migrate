@@ -14,7 +14,60 @@
     <a href="/admin/banUrlManage" class="list-group-item list-group-item-action">차단 URL 관리</a>
 </div>
 <div layout:fragment="content">
-
+    <div id="url-search-help" class="invalid-feedback">
+    </div>
+    <form action="" method="get" onsubmit="return checkUrlSelector()">
+        <div class="input-group mb-3">
+            <select class="col-1 custom-select" name="keyword" id="keyword">
+                <option selected value="total">전체</option>
+                <option value="originalUrl">원본URL</option>
+                <option value="shortUrl">단축URL</option>
+            </select>
+            <input type="text" id="search" name="search" class="col-3 form-control">
+            &ensp;
+            <button type="submit" class="btn btn-primary">검색</button>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">단축 URL</th>
+            <th scope="col">원본 URL</th>
+            <th scope="col">접근 횟수</th>
+            <th scope="col">생성 날짜</th>
+            <th scope="col">삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="user" th:each="url : ${urls.getList()}" th:id="${url.getId()}">
+            <th th:text="${url.getShortUrl()}" style="width: 100px"></th>
+            <td th:text="${url.getOriginalUrl()}" style="width: 350px"><a href="{{$url->original_url}}"></a></td>
+            <td th:text="${url.getCount()}" style="width: 110px"></td>
+            <td th:text="${url.getCreatedAt()}"></td>
+            <td>
+                <button class="btn btn-outline-danger" onclick="requestAdminDeleteUrl(this)">삭제</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${urls.getPrePage() == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/urlManage(pageNum=${urls.getPrePage()}, keyword=${search.getKeyword()}, search=${search.getSearch()})}"
+                   tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(urls.getNavigateFirstPage(), urls.getNavigateLastPage())}"
+                class="page-item" th:classappend="${page == urls.getPageNum()} ? 'active'">
+                <a class="page-link" th:text="${page}"
+                   th:href="@{/admin/urlManage(pageNum=${page}, keyword=${search.getKeyword()}, search=${search.getSearch()})}"></a>
+            </li>
+            <li class="page-item" th:classappend="${urls.getNextPage() == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/urlManage(pageNum=${urls.getNextPage()}, keyword=${search.getKeyword()}, search=${search.getSearch()})}">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </body>
 </html>

@@ -9,6 +9,7 @@ public enum ConstConfig {
     SAME_PASSWORD(1),
     WRONG_PASSWORD(2),
     CORRECT_PASSWORD(3),
-    DELETE_COMPLETE(4);
+    DELETE_COMPLETE(4),
+    PAGE_SIZE(10);
     private final int val;
 }
