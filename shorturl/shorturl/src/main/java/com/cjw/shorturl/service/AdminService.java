@@ -14,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -65,5 +66,30 @@ public class AdminService {
     public Page<BanUrl> getBanUrlList(int pageNo) throws Exception {
         PageHelper.startPage(pageNo, 10);
         return adminSearchRepository.findSearchBanUrl();
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        adminRepository.deleteUserById(id);
+    }
+
+    @Transactional
+    public void giveAuth(Long id) {
+        adminRepository.giveAdminAuthById(id);
+    }
+
+    @Transactional
+    public void withdrawAuth(Long id) {
+        adminRepository.withdrawAdminAuthById(id);
+    }
+
+    @Transactional
+    public void deleteUrl(Long id) {
+        adminRepository.deleteUrlById(id);
+    }
+
+    @Transactional
+    public void deleteBanUrl(Long id) {
+        adminRepository.deleteBanUrlById(id);
     }
 }

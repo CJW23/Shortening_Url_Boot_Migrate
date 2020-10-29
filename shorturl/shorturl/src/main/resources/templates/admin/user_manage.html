@@ -50,10 +50,10 @@
             <td th:text="${user.getEmail()}"></td>
             <td th:text="${user.getNickname()}"></td>
             <td th:text="${user.getCreatedAt().toString()}"></td>
-            <td sec:authorize="hasRole('ROLE_USER')">
+            <td th:if="${user.getRole() == 'USER'}">
                 <button class="btn btn-outline-primary" onclick="requestAdminGiveAuth(this)">관리자 권한 부여</button>
             </td>
-            <td sec:authorize="hasRole('ROLE_ADMIN')">
+            <td th:if="${user.getRole() == 'ADMIN'}">
                 <button class="btn btn-outline-success" onclick="requestAdminWithdrawAuth(this)">관리자 권한 회수
                 </button>
             </td>

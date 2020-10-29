@@ -1,9 +1,11 @@
 /**
  * 응답
  * @param {string} rst
+ * @param msg
  */
-function adminReloadResponse(rst) {
+function adminReloadResponse(rst, msg) {
     if (rst === TRUE) {
+        alert(msg);
         location.reload();
     }
 }

@@ -8,17 +8,14 @@ function requestAdminDeleteUrl(tagData) {
     }
     let id = $(tagData).parent().parent().attr('id');
     $.ajax({
-        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'delete',
-        url: '/admin/urls/' + id,
+        url: '/admin/url/' + id,
         dataType: 'json',
         success: function (data) {
-            console.log(data);
-            adminReloadResponse(data['result']);
+            adminReloadResponse(data['result'], "삭제 완");
         },
         error: function (data) {
-            console.log(data);
+            console.log(data);료
         }
     });
 }
@@ -30,8 +27,6 @@ function requestAdminDeleteUrl(tagData) {
 function requestAdminCreateBanUrl() {
     let url = $('#register-ban-url').val();
     $.ajax({
-        //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'post',
         url: '/admin/ban',
         dataType: 'json',
@@ -61,10 +56,10 @@ function requestAdminDeleteBanUrl(tagData) {
         //아래 headers에 반드시 token을 추가해줘야 한다.!!!!!
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'delete',
-        url: '/admin/ban/' + id,
+        url: '/admin/banUrl/' + id,
         dataType: 'json',
         success: function (data) {
-            adminReloadResponse(data['result']);
+            adminReloadResponse(data['result'], "삭제 완료");
         },
         error: function (data) {
             console.log(data);

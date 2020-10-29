@@ -8,12 +8,11 @@ function requestAdminDeleteUser(tagData) {
     }
     let id = $(tagData).parent().parent().attr('id');
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'delete',
-        url: '/admin/users/' + id,
+        url: '/admin/user/' + id,
         dataType: 'json',
         success: function (data) {
-            adminReloadResponse(data['result']);
+            adminReloadResponse(data['result'], "삭제 완료");
         },
         error: function (data) {
             alert("에러 발생");
@@ -34,13 +33,13 @@ function requestAdminGiveAuth(tagData) {
     $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'put',
-        url: '/admin/users/give-auth/' + id,
+        url: '/admin/giveAuth/' + id,
         dataType: 'json',
         success: function (data) {
-            adminReloadResponse(data['result']);
+            adminReloadResponse(data['result'], "부여 완료");
         },
         error: function (data) {
-            console.log(data);
+            alert("에러 발생");
         }
     });
 }
@@ -56,15 +55,14 @@ function requestAdminWithdrawAuth(tagData) {
 
     let id = $(tagData).parent().parent().attr('id');
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: 'put',
-        url: '/admin/users/withdraw-auth/' + id,
+        url: '/admin/withdrawAuth/' + id,
         dataType: 'json',
         success: function (data) {
-            adminReloadResponse(data['result']);
+            adminReloadResponse(data['result'], "회수 완료");
         },
         error: function (data) {
-            console.log(data);
+            alert("에러 발생");
         }
     });
 }

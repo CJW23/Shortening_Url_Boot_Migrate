@@ -1,5 +1,7 @@
 package com.cjw.shorturl.repository;
 
+import com.cjw.shorturl.entity.BanUrl;
+import com.cjw.shorturl.entity.Url;
 import com.cjw.shorturl.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -85,4 +87,27 @@ public class AdminRepository {
         return ((List<Object[]>) query.getResultList());
     }
 
+    public void deleteUserById(Long id) {
+        em.remove(em.find(User.class, id));
+    }
+
+    public void giveAdminAuthById(Long id) {
+        User user = em.find(User.class, id);
+        user.setRole("ADMIN");
+    }
+
+    public void withdrawAdminAuthById(Long id) {
+        User user = em.find(User.class, id);
+        user.setRole("USER");
+    }
+
+    public void deleteUrlById(Long id) {
+        Url url = em.find(Url.class, id);
+        em.remove(url);
+    }
+
+    public void deleteBanUrlById(Long id) {
+        BanUrl banUrl = em.find(BanUrl.class, id);
+        em.remove(banUrl);
+    }
 }
