@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+
+<form id="sign_up" th:object="${signUpDTO}">
+    email
+    <label>
+        <input type="text" th:field="*{email}" name="email">
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+    </label><br>
+
+    password
+    <label>
+        <input type="password" th:field="*{password}" name="password">
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+    </label><br>
+
+    name
+    <label>
+        <input type="text" th:field="*{name}" name="name">
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    </label><br>
+
+    nickname
+    <label>
+        <input type="text" th:field="*{nickname}" name="nickname">
+        <p th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></p>
+    </label><br>
+
+    phone
+    <label>
+        <input type="tel" th:field="*{phone}" name="phone">
+        <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+    </label><br>
+    <button type="button" onclick="f()">회원 가입</button>
+</form>
+
+</body>
+</html>
+<script>
+    function f() {
+        var a = $('#sign_up').serialize();
+        $.ajax({
+            url:"/auth/signUp",
+            data:a,
+            type:"POST",
+            success : function (frag) {
+                $('#sign_up').replaceWith(frag);
+                alert("awdad");
+            }
+        })
+    }
+</script>

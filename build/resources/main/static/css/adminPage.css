@@ -1,0 +1,21 @@
+.admin-content {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.admin-total-text {
+    margin-top: 10px;
+}
+.admin-chart{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem
+}
+.user{
+    background-color: #ffffff;
+
+}
+.user td{
+    word-break:break-all;
+}

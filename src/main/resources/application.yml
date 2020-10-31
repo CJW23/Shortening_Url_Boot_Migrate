@@ -1,0 +1,15 @@
+#application.yml
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/boot_short_url?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: awdsd123
+
+mybatis:
+  mapper-locations: "mapper/AdminMapper.xml"
+
